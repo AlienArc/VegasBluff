@@ -79,10 +79,10 @@ namespace VegasTools
             foreach (var kf in track.KeyFrames)
             {
                 var mkf = SelectOrInsertKeyFrame(videoTrack, kf);
-                mkf.Width = kf.Width;
-                mkf.Height = kf.Height;
-                mkf.PositionX = kf.PanX;
-                mkf.PositionY = kf.PanY;
+                mkf.Width = (double)kf.Width;
+                mkf.Height = (double)kf.Height;
+                mkf.PositionX = (double)kf.PanX;
+                mkf.PositionY = (double)kf.PanY;
             }
         }
 
@@ -92,11 +92,11 @@ namespace VegasTools
             {
                 var mkf = videoTrack.TrackMotion.MotionKeyframes[0];
                 if (mkf.Position.FrameCount > 0)
-                    mkf.Position = Timecode.FromFrames(0);
+                    mkf.Position = new Timecode((double)kf.time*1000);
                 return mkf;
             }
 
-            return videoTrack.TrackMotion.InsertMotionKeyframe(new Timecode(kf.time * 1000));
+            return videoTrack.TrackMotion.InsertMotionKeyframe(new Timecode((double)kf.time * 1000));
         }
     }
 }

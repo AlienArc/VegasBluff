@@ -8,10 +8,11 @@ namespace VegasTools.VideoWall
     {
         public static List<TrackInfo> BuildWall(int width, int height, WallBuilderConfiguration configData)
         {
-            int columns = configData.Columns;
-            int rows = configData.Rows;
-            double durationPerFrame = configData.DurationPerFrame;
-            double durationBetweenFrames = configData.DurationBetweenFrames;
+            var delay = (decimal)configData.DelayBeforeFirstZoom;
+            var columns = configData.Columns;
+            var rows = configData.Rows;
+            var durationPerFrame = (decimal)configData.DurationPerFrame;
+            var durationBetweenFrames = (decimal)configData.DurationBetweenFrames;
             var padding = 100;
 
             var totalCells = columns * rows;
@@ -43,10 +44,14 @@ namespace VegasTools.VideoWall
             var centerX = maxWidth / 2;
             var centerY = maxHeight / 2;
 
-            var random = new Random();
-            Shuffle(tracks, random);
+            if (configData.Randomize)
+            {
+                var random = new Random();
+                Shuffle(tracks, random);
+            }
 
-            double currentTime = 0;
+            var currentTime = delay;
+            var paddingScale = (1 - configData.Padding);
 
             for (var currentKf = 1; currentKf < totalKeyFrames + 1; currentKf++)
             {
@@ -65,16 +70,16 @@ namespace VegasTools.VideoWall
                         kf.time = currentTime;
                         kf.PanX = ti.OffsetX - targetX;
                         kf.PanY = ti.OffsetY - targetY;
-                        kf.Width = width;
-                        kf.Height = height;
+                        kf.Width = width * paddingScale;
+                        kf.Height = height * paddingScale;
                         ti.KeyFrames.Add(kf);
 
                         kf = new KeyFrameInfo();
                         kf.time = currentTime + durationPerFrame;
                         kf.PanX = ti.OffsetX - targetX;
                         kf.PanY = ti.OffsetY - targetY;
-                        kf.Width = width;
-                        kf.Height = height;
+                        kf.Width = width * paddingScale;
+                        kf.Height = height * paddingScale;
                         ti.KeyFrames.Add(kf);
 
                     }
@@ -87,7 +92,7 @@ namespace VegasTools.VideoWall
                     var targetX = 0;
                     var targetY = 0;
 
-                    var baseScale = Math.Min(1d / gridX, 1d / gridY);
+                    var baseScale = Math.Min(1m / gridX, 1m / gridY);
                     var postframeTimeStep = durationBetweenFrames;
 
                     if (currentKf < 2 || currentKf > totalKeyFrames - 2)
@@ -110,8 +115,8 @@ namespace VegasTools.VideoWall
                         targetX = previousTrack.OffsetX - (previousTrack.OffsetX - nextTrack.OffsetX) / 2;
                         targetY = previousTrack.OffsetY - (previousTrack.OffsetY - nextTrack.OffsetY) / 2;
 
-                        double widthDiff = Math.Abs(previousTrack.OffsetX - nextTrack.OffsetX) + width;
-                        double heightDiff = Math.Abs(previousTrack.OffsetY - nextTrack.OffsetY) + height;
+                        decimal widthDiff = Math.Abs(previousTrack.OffsetX - nextTrack.OffsetX) + width;
+                        decimal heightDiff = Math.Abs(previousTrack.OffsetY - nextTrack.OffsetY) + height;
                         var scaleFactor = Math.Min(widthDiff / width, heightDiff / height);
                         baseScale = baseScale * scaleFactor;
 
@@ -119,17 +124,12 @@ namespace VegasTools.VideoWall
 
                     }
 
-
-                    foreach (var ti in tracks)
+                    if (currentKf == 1 && currentTime != 0)
                     {
-                        var kf = new KeyFrameInfo();
-                        kf.time = currentTime; //DurationPerStop * (currentKF - 1d);
-                        kf.Width = width * baseScale;
-                        kf.Height = height * baseScale;
-                        kf.PanX = (ti.OffsetX - targetX) * baseScale;
-                        kf.PanY = (ti.OffsetY - targetY) * baseScale;
-                        ti.KeyFrames.Add(kf);
+                        InsertKeyFrames(width, height, tracks, 0, baseScale, targetX, targetY, paddingScale);
                     }
+
+                    InsertKeyFrames(width, height, tracks, currentTime, baseScale, targetX, targetY, paddingScale);
 
                     currentTime += postframeTimeStep;
                 }
@@ -138,7 +138,22 @@ namespace VegasTools.VideoWall
             return tracks;
         }
 
-        public static void Shuffle<T>(IList<T> list, Random random)
+        private static void InsertKeyFrames(int width, int height, List<TrackInfo> tracks, decimal currentTime, decimal baseScale,
+            int targetX, int targetY, decimal paddingScale)
+        {
+            foreach (var ti in tracks)
+            {
+                var kf = new KeyFrameInfo();
+                kf.time = currentTime; //DurationPerStop * (currentKF - 1d);
+                kf.Width = width*baseScale * paddingScale;
+                kf.Height = height*baseScale * paddingScale;
+                kf.PanX = (ti.OffsetX - targetX)*baseScale;
+                kf.PanY = (ti.OffsetY - targetY)*baseScale;
+                ti.KeyFrames.Add(kf);
+            }
+        }
+
+        public static void Shuffle(IList<TrackInfo> list, Random random)
         {
             for (var i = 0; i < list.Count; i++)
             {
@@ -146,6 +161,7 @@ namespace VegasTools.VideoWall
                 var temp = list[j];
                 list[j] = list[i];
                 list[i] = temp;
+                list[i].Number = i + 1;
             }
         }
     }

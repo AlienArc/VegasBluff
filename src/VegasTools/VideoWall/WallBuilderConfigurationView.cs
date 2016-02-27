@@ -18,6 +18,10 @@ namespace VegasTools.VideoWall
 
                 DurationEachFrame.Value = (decimal)_configData.DurationPerFrame;
                 DurationBetweenFrames.Value = (decimal)_configData.DurationBetweenFrames;
+                DelayBeforeZoom.Value = (decimal)_configData.DelayBeforeFirstZoom;
+                RandomizeTracks.Checked = _configData.Randomize;
+                Padding.Value = _configData.Padding;
+                ZoomOffset.Value = _configData.ZoomOffset;
             }
         }
 
@@ -33,6 +37,10 @@ namespace VegasTools.VideoWall
             ConfigData.Rows = (int)NumberOfRows.Value;
             ConfigData.DurationPerFrame = (double)DurationEachFrame.Value;
             ConfigData.DurationBetweenFrames = (double)DurationBetweenFrames.Value;
+            ConfigData.DelayBeforeFirstZoom = (double)DelayBeforeZoom.Value;
+            ConfigData.Randomize = RandomizeTracks.Checked;
+            ConfigData.Padding = Padding.Value;
+            ConfigData.ZoomOffset = ZoomOffset.Value;
 
             DialogResult = DialogResult.OK;
             Hide();

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Sony.Vegas;
 using VegasTools.Models;
 
 namespace VegasTools.VideoWall
@@ -52,6 +53,7 @@ namespace VegasTools.VideoWall
 
             var currentTime = delay;
             var paddingScale = (1 - configData.Padding);
+            var globalZoomLimit = (1 - configData.ZoomOffset);
 
             for (var currentKf = 1; currentKf < totalKeyFrames + 1; currentKf++)
             {
@@ -67,19 +69,31 @@ namespace VegasTools.VideoWall
                     {
 
                         var kf = new KeyFrameInfo();
-                        kf.time = currentTime;
-                        kf.PanX = ti.OffsetX - targetX;
-                        kf.PanY = ti.OffsetY - targetY;
-                        kf.Width = width * paddingScale;
-                        kf.Height = height * paddingScale;
+                        kf.Time = currentTime;
+                        kf.PanX = (ti.OffsetX - targetX)*globalZoomLimit;
+                        kf.PanY = (ti.OffsetY - targetY)*globalZoomLimit;
+                        kf.Width = width*paddingScale*globalZoomLimit;
+                        kf.Height = height*paddingScale*globalZoomLimit;
+                        kf.KeyframeType = VideoKeyframeType.Smooth;
+                        ti.KeyFrames.Add(kf);
+
+                        var easing = 1.05m;
+                        kf = new KeyFrameInfo();
+                        kf.Time = currentTime + durationPerFrame/2;
+                        kf.PanX = (ti.OffsetX - targetX) * globalZoomLimit * easing;
+                        kf.PanY = (ti.OffsetY - targetY) * globalZoomLimit * easing;
+                        kf.Width = width*paddingScale*globalZoomLimit* easing;
+                        kf.Height = height*paddingScale*globalZoomLimit* easing;
+                        kf.KeyframeType = VideoKeyframeType.Smooth;
                         ti.KeyFrames.Add(kf);
 
                         kf = new KeyFrameInfo();
-                        kf.time = currentTime + durationPerFrame;
-                        kf.PanX = ti.OffsetX - targetX;
-                        kf.PanY = ti.OffsetY - targetY;
-                        kf.Width = width * paddingScale;
-                        kf.Height = height * paddingScale;
+                        kf.Time = currentTime + durationPerFrame;
+                        kf.PanX = (ti.OffsetX - targetX)*globalZoomLimit;
+                        kf.PanY = (ti.OffsetY - targetY)*globalZoomLimit;
+                        kf.Width = width*paddingScale*globalZoomLimit;
+                        kf.Height = height*paddingScale*globalZoomLimit;
+                        kf.KeyframeType = VideoKeyframeType.Slow;
                         ti.KeyFrames.Add(kf);
 
                     }
@@ -144,11 +158,12 @@ namespace VegasTools.VideoWall
             foreach (var ti in tracks)
             {
                 var kf = new KeyFrameInfo();
-                kf.time = currentTime; //DurationPerStop * (currentKF - 1d);
-                kf.Width = width*baseScale * paddingScale;
-                kf.Height = height*baseScale * paddingScale;
+                kf.Time = currentTime; //DurationPerStop * (currentKF - 1d);
+                kf.Width = width*baseScale*paddingScale;
+                kf.Height = height*baseScale*paddingScale;
                 kf.PanX = (ti.OffsetX - targetX)*baseScale;
                 kf.PanY = (ti.OffsetY - targetY)*baseScale;
+                kf.KeyframeType = VideoKeyframeType.Slow;
                 ti.KeyFrames.Add(kf);
             }
         }

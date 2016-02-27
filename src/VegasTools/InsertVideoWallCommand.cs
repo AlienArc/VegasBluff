@@ -88,15 +88,15 @@ namespace VegasTools
 
         private static TrackMotionKeyframe SelectOrInsertKeyFrame(VideoTrack videoTrack, KeyFrameInfo kf)
         {
-            if (kf.time == 0)
+            if (kf.Time == 0)
             {
                 var mkf = videoTrack.TrackMotion.MotionKeyframes[0];
                 if (mkf.Position.FrameCount > 0)
-                    mkf.Position = new Timecode((double)kf.time*1000);
+                    mkf.Position = new Timecode((double)kf.Time*1000);
                 return mkf;
             }
 
-            return videoTrack.TrackMotion.InsertMotionKeyframe(new Timecode((double)kf.time * 1000));
+            return videoTrack.TrackMotion.InsertMotionKeyframe(new Timecode((double)kf.Time * 1000));
         }
     }
 }

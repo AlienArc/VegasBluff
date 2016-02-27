@@ -2,10 +2,11 @@ namespace VegasTools.Models
 {
     public class KeyFrameInfo
     {
-        public decimal time;
-        public decimal PanX;
-        public decimal PanY;
-        public decimal Width;
-        public decimal Height;
+        public decimal Time { get; set; }
+        public decimal PanX { get; set; }
+        public decimal PanY { get; set; }
+        public decimal Width { get; set; }
+        public decimal Height { get; set; }
+        public Sony.Vegas.VideoKeyframeType KeyframeType { get; set; }
     }
 }

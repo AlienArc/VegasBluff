@@ -30,7 +30,7 @@ namespace VegasTools
 
         private CustomCommand GetOrderEventsByNameAndTimeCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsNameTime");
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsByNameTime");
             cmd.DisplayName = "Order Events By Name and In Time";
             cmd.Invoked += this.OrderEventsByNameAndTimeInvoked;
             return cmd;
@@ -43,7 +43,7 @@ namespace VegasTools
 
         private CustomCommand GetCreateVideoWallCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanVideoWall");
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
             cmd.Invoked += this.VideoWallInvoked;
             return cmd;

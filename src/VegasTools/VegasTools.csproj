@@ -49,6 +49,8 @@
     <Compile Include="InsertVideoWallCommand.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
     <Compile Include="Models\TrackInfo.cs" />
+    <Compile Include="OrderEventsByNameAndTimeCommand.cs" />
+    <Compile Include="TrackEventsNameTimeComparerClass.cs" />
     <Compile Include="VideoWall\WallBuilder.cs" />
     <Compile Include="VideoWall\WallBuilderConfigurationView.cs">
       <SubType>Form</SubType>

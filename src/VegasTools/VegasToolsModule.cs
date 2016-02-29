@@ -2,6 +2,7 @@
 using System.Text;
 using Sony.Vegas;
 using System.Collections;
+using System.Security.Cryptography.X509Certificates;
 
 namespace VegasTools
 {
@@ -17,10 +18,35 @@ namespace VegasTools
 
         public ICollection GetCustomCommands()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "VideoWall");
-            cmd.DisplayName = "Insert Video Wall";
+            
+            var menu = new CustomCommand(CommandCategory.Tools, "NewmanVegasTools");
+            menu.DisplayName = "Duane's Vegas Tools";
+
+            menu.AddChild(GetCreateVideoWallCommand());
+            menu.AddChild(GetOrderEventsByNameAndTimeCommand());
+
+            return new CustomCommand[] { menu };
+        }
+
+        private CustomCommand GetOrderEventsByNameAndTimeCommand()
+        {
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsNameTime");
+            cmd.DisplayName = "Order Events By Name and In Time";
+            cmd.Invoked += this.OrderEventsByNameAndTimeInvoked;
+            return cmd;
+        }
+
+        private void OrderEventsByNameAndTimeInvoked(object sender, EventArgs e)
+        {
+            OrderEventsByNameAndTimeCommand.Execute(CurrentVegas);
+        }
+
+        private CustomCommand GetCreateVideoWallCommand()
+        {
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanVideoWall");
+            cmd.DisplayName = "Create Video Wall";
             cmd.Invoked += this.VideoWallInvoked;
-            return new CustomCommand[] { cmd };
+            return cmd;
         }
 
         void VideoWallInvoked(Object sender, EventArgs args)

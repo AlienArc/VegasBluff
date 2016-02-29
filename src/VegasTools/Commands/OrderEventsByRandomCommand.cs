@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Windows.Forms;
 using Sony.Vegas;
+using VegasTools.Helpers;
 
-namespace VegasTools
+namespace VegasTools.Commands
 {
-    public static class OrderEventsByNameAndTimeCommand
+    public static class OrderEventsByRandomCommand
     {
         public static void Execute(Vegas vegas)
         {
@@ -46,7 +48,7 @@ namespace VegasTools
             var startTime = selectedTrackEvents[0].Start;
 
             //order the list
-            selectedTrackEvents.Sort(new TrackEventsNameTimeComparerClass());
+            ListHelpers.Shuffle(selectedTrackEvents, new Random());
 
             using (var undo = new UndoBlock("Order Events By Name And Time"))
             {

@@ -46,11 +46,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="InsertVideoWallCommand.cs" />
+    <Compile Include="Commands\InsertVideoWallCommand.cs" />
+    <Compile Include="Helpers\ListHelpers.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
     <Compile Include="Models\TrackInfo.cs" />
-    <Compile Include="OrderEventsByNameAndTimeCommand.cs" />
-    <Compile Include="TrackEventsNameTimeComparerClass.cs" />
+    <Compile Include="Commands\OrderEventsByNameAndTimeCommand.cs" />
+    <Compile Include="Commands\OrderEventsByRandomCommand.cs" />
+    <Compile Include="Helpers\TrackEventsNameTimeComparer.cs" />
     <Compile Include="VideoWall\WallBuilder.cs" />
     <Compile Include="VideoWall\WallBuilderConfigurationView.cs">
       <SubType>Form</SubType>
@@ -83,6 +85,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>copy /Y "$(TargetPath)" "c:\users\duane\documents\Vegas Application Extensions\$(TargetFileName)"</PostBuildEvent>

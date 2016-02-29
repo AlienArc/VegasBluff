@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Sony.Vegas;
+using VegasTools.Helpers;
 using VegasTools.Models;
 
 namespace VegasTools.VideoWall
@@ -47,8 +48,8 @@ namespace VegasTools.VideoWall
 
             if (configData.Randomize)
             {
-                var random = new Random();
-                Shuffle(tracks, random);
+                ListHelpers.Shuffle(tracks, new Random(),
+                    info => { info.NewItem.Number = info.Index + 1; });
             }
 
             var currentTime = delay;
@@ -165,18 +166,6 @@ namespace VegasTools.VideoWall
                 kf.PanY = (ti.OffsetY - targetY)*baseScale;
                 kf.KeyframeType = VideoKeyframeType.Slow;
                 ti.KeyFrames.Add(kf);
-            }
-        }
-
-        public static void Shuffle(IList<TrackInfo> list, Random random)
-        {
-            for (var i = 0; i < list.Count; i++)
-            {
-                var j = random.Next(i, list.Count);
-                var temp = list[j];
-                list[j] = list[i];
-                list[i] = temp;
-                list[i].Number = i + 1;
             }
         }
     }

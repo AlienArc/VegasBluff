@@ -4,7 +4,7 @@ using Sony.Vegas;
 using VegasTools.Models;
 using VegasTools.VideoWall;
 
-namespace VegasTools
+namespace VegasTools.Commands
 {
     public static class InsertVideoWallCommand
     {

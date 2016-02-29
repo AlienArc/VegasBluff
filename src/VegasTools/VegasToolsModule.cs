@@ -3,6 +3,7 @@ using System.Text;
 using Sony.Vegas;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
+using VegasTools.Commands;
 
 namespace VegasTools
 {
@@ -28,31 +29,30 @@ namespace VegasTools
             return new CustomCommand[] { menu };
         }
 
-        private CustomCommand GetOrderEventsByNameAndTimeCommand()
-        {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsByNameTime");
-            cmd.DisplayName = "Order Events By Name and In Time";
-            cmd.Invoked += this.OrderEventsByNameAndTimeInvoked;
-            return cmd;
-        }
-
-        private void OrderEventsByNameAndTimeInvoked(object sender, EventArgs e)
-        {
-            OrderEventsByNameAndTimeCommand.Execute(CurrentVegas);
-        }
-
         private CustomCommand GetCreateVideoWallCommand()
         {
             var cmd = new CustomCommand(CommandCategory.Tools, "NewmanCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
-            cmd.Invoked += this.VideoWallInvoked;
+            cmd.Invoked += (sender, args) => { InsertVideoWallCommand.Execute(CurrentVegas); };
             return cmd;
         }
 
-        void VideoWallInvoked(Object sender, EventArgs args)
+        private CustomCommand GetOrderEventsByNameAndTimeCommand()
         {
-            InsertVideoWallCommand.Execute(CurrentVegas);
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsByNameTime");
+            cmd.DisplayName = "Order Events By Name and In Time";
+            cmd.Invoked += (sender, args) => { OrderEventsByNameAndTimeCommand.Execute(CurrentVegas); };
+            return cmd;
         }
+
+        private CustomCommand GetOrderEventsByRandomCommand()
+        {
+            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanRandomizeEvents");
+            cmd.DisplayName = "Randomize Events";
+            cmd.Invoked += (sender, args) => { OrderEventsByRandomCommand.Execute(CurrentVegas); };
+            return cmd;
+        }
+
 
     }
 }

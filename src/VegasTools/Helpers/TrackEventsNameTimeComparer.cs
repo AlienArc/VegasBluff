@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using Sony.Vegas;
 
-namespace VegasTools
+namespace VegasTools.Helpers
 {
-    public class TrackEventsNameTimeComparerClass : IComparer<TrackEvent>
+    public class TrackEventsNameTimeComparer : IComparer<TrackEvent>
     {
 
         public int Compare(TrackEvent event1, TrackEvent event2)

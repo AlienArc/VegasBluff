@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace VegasTools.Models
+namespace Bluff.Models
 {
     public class TrackInfo
     {

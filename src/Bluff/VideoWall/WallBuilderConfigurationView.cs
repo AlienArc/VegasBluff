@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace VegasTools.VideoWall
+namespace Bluff.VideoWall
 {
     public partial class WallBuilderConfigurationView : Form
     {

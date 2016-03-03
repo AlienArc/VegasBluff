@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Sony.Vegas;
 
-namespace VegasTools.Helpers
+namespace Bluff.Helpers
 {
     public class TrackEventsNameTimeComparer : IComparer<TrackEvent>
     {

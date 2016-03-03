@@ -1,4 +1,4 @@
-namespace VegasTools.VideoWall
+namespace Bluff.VideoWall
 {
     public class WallBuilderConfiguration
     {

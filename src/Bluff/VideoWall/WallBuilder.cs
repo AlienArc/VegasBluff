@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Sony.Vegas;
-using VegasTools.Helpers;
-using VegasTools.Models;
+using Bluff.Helpers;
+using Bluff.Models;
 
-namespace VegasTools.VideoWall
+namespace Bluff.VideoWall
 {
     public static class WallBuilder
     {

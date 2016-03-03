@@ -1,4 +1,4 @@
-namespace VegasTools.Models
+namespace Bluff.Models
 {
     public class KeyFrameInfo
     {

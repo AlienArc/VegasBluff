@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace VegasTools.Properties
+namespace Bluff.Properties
 {
 
 
@@ -44,7 +44,7 @@ namespace VegasTools.Properties
             {
                 if ((resourceMan == null))
                 {
-                    var temp = new global::System.Resources.ResourceManager("VegasTools.Properties.Resources", typeof(Resources).Assembly);
+                    var temp = new global::System.Resources.ResourceManager("Bluff.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
 using Sony.Vegas;
-using VegasTools.Models;
-using VegasTools.VideoWall;
+using Bluff.Models;
+using Bluff.VideoWall;
 
-namespace VegasTools.Commands
+namespace Bluff.Commands
 {
     public static class InsertVideoWallCommand
     {

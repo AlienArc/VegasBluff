@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Sony.Vegas;
-using VegasTools.Helpers;
+using Bluff.Helpers;
 
-namespace VegasTools.Commands
+namespace Bluff.Commands
 {
     public static class OrderEventsByNameAndTimeCommand
     {

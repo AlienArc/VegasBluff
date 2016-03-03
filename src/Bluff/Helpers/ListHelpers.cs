@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using Sony.Vegas;
-using VegasTools.Models;
+using Bluff.Models;
 
-namespace VegasTools.Helpers
+namespace Bluff.Helpers
 {
     public static class ListHelpers
     {

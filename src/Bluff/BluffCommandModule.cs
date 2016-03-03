@@ -3,11 +3,11 @@ using System.Text;
 using Sony.Vegas;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
-using VegasTools.Commands;
+using Bluff.Commands;
 
-namespace VegasTools
+namespace Bluff
 {
-    public class VegasToolsCommandModule : ICustomCommandModule
+    public class BluffCommandModule : ICustomCommandModule
     {
 
         Vegas CurrentVegas;
@@ -20,7 +20,7 @@ namespace VegasTools
         public ICollection GetCustomCommands()
         {
 
-            var menu = new CustomCommand(CommandCategory.Tools, "CommunityVegasTools")
+            var menu = new CustomCommand(CommandCategory.Tools, "CommunityBluff")
             {
                 DisplayName = "Community Vegas Tools"
             };

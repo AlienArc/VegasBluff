@@ -29,6 +29,7 @@ namespace Bluff
             menu.AddChild(GetOrderEventsByNameAndTimeCommand());
             menu.AddChild(GetOrderEventsByRandomCommand());
             menu.AddChild(GetSplitRegionCommand());
+            menu.AddChild(GetConvertMarkersToRegionsCommand());
 
             return new[] { menu };
         }
@@ -57,12 +58,19 @@ namespace Bluff
             return cmd;
         }
 
-
         private CustomCommand GetSplitRegionCommand()
         {
             var cmd = new CustomCommand(CommandCategory.Tools, "BluffSplitRegion");
             cmd.DisplayName = "Split Region";
             cmd.Invoked += (sender, args) => { SplitRegion.Execute(CurrentVegas); };
+            return cmd;
+        }
+
+        private CustomCommand GetConvertMarkersToRegionsCommand()
+        {
+            var cmd = new CustomCommand(CommandCategory.Tools, "BluffConvertMarkersToRegions");
+            cmd.DisplayName = "Convert Markers To Regions";
+            cmd.Invoked += (sender, args) => { ConvertMarkersToRegions.Execute(CurrentVegas); };
             return cmd;
         }
 

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Sony.Vegas;
+﻿using Sony.Vegas;
 
 namespace Bluff.Commands
 {

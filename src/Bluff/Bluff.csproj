@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Commands\ConvertMarkersToRegions.cs" />
     <Compile Include="Commands\InsertVideoWall.cs" />
     <Compile Include="Commands\SplitRegion.cs" />
     <Compile Include="Helpers\ListHelpers.cs" />

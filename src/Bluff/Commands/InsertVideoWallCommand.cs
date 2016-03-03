@@ -75,14 +75,16 @@ namespace Bluff.Commands
         private static void SetTrackKeyFrames(VideoTrack videoTrack, TrackInfo track)
         {
             videoTrack.TrackMotion.MotionKeyframes.Clear();
+            videoTrack.CompositeMode = CompositeMode.SrcAlpha3D;
 
             foreach (var kf in track.KeyFrames)
             {
                 var mkf = SelectOrInsertKeyFrame(videoTrack, kf);
-                mkf.Width = (double)kf.Width;
-                mkf.Height = (double)kf.Height;
+                //mkf.Width = (double)kf.Width;
+                //mkf.Height = (double)kf.Height;
                 mkf.PositionX = (double)kf.PanX;
                 mkf.PositionY = (double)kf.PanY;
+                mkf.PositionZ = (double)kf.PanZ;
             }
         }
 

@@ -55,7 +55,7 @@ namespace Bluff.VideoWall
             var currentTime = delay;
             var paddingScale = (1 - configData.Padding);
             var globalZoomLimit = (1 - configData.ZoomOffset);
-
+            
             for (var currentKf = 1; currentKf < totalKeyFrames + 1; currentKf++)
             {
                 if (currentKf != 0 && currentKf % 2 == 0)
@@ -71,30 +71,33 @@ namespace Bluff.VideoWall
 
                         var kf = new KeyFrameInfo();
                         kf.Time = currentTime;
-                        kf.PanX = (ti.OffsetX - targetX)*globalZoomLimit;
-                        kf.PanY = (ti.OffsetY - targetY)*globalZoomLimit;
-                        kf.Width = width*paddingScale*globalZoomLimit;
-                        kf.Height = height*paddingScale*globalZoomLimit;
+                        kf.PanX = (ti.OffsetX - targetX); //*globalZoomLimit;
+                        kf.PanY = (ti.OffsetY - targetY); //*globalZoomLimit;
+                        kf.Width = width*paddingScale;//*globalZoomLimit;
+                        kf.Height = height*paddingScale;//*globalZoomLimit;
                         kf.KeyframeType = VideoKeyframeType.Smooth;
+                        kf.PanZ = 1000*globalZoomLimit;
                         ti.KeyFrames.Add(kf);
 
                         var easing = 1.05m;
                         kf = new KeyFrameInfo();
                         kf.Time = currentTime + durationPerFrame/2;
-                        kf.PanX = (ti.OffsetX - targetX) * globalZoomLimit * easing;
-                        kf.PanY = (ti.OffsetY - targetY) * globalZoomLimit * easing;
-                        kf.Width = width*paddingScale*globalZoomLimit* easing;
-                        kf.Height = height*paddingScale*globalZoomLimit* easing;
+                        kf.PanX = (ti.OffsetX - targetX);// * globalZoomLimit * easing;
+                        kf.PanY = (ti.OffsetY - targetY);// * globalZoomLimit * easing;
+                        kf.Width = width*paddingScale;//*globalZoomLimit* easing;
+                        kf.Height = height*paddingScale;//*globalZoomLimit* easing;
                         kf.KeyframeType = VideoKeyframeType.Smooth;
+                        kf.PanZ = 1000 * globalZoomLimit * easing;
                         ti.KeyFrames.Add(kf);
 
                         kf = new KeyFrameInfo();
                         kf.Time = currentTime + durationPerFrame;
-                        kf.PanX = (ti.OffsetX - targetX)*globalZoomLimit;
-                        kf.PanY = (ti.OffsetY - targetY)*globalZoomLimit;
-                        kf.Width = width*paddingScale*globalZoomLimit;
-                        kf.Height = height*paddingScale*globalZoomLimit;
+                        kf.PanX = (ti.OffsetX - targetX);//*globalZoomLimit;
+                        kf.PanY = (ti.OffsetY - targetY);//*globalZoomLimit;
+                        kf.Width = width*paddingScale;//*globalZoomLimit;
+                        kf.Height = height*paddingScale;//*globalZoomLimit;
                         kf.KeyframeType = VideoKeyframeType.Slow;
+                        kf.PanZ = 1000 * globalZoomLimit;
                         ti.KeyFrames.Add(kf);
 
                     }
@@ -156,14 +159,16 @@ namespace Bluff.VideoWall
         private static void InsertKeyFrames(int width, int height, List<TrackInfo> tracks, decimal currentTime, decimal baseScale,
             int targetX, int targetY, decimal paddingScale)
         {
+            var numberOfTracksSqrt = (decimal)Math.Sqrt(tracks.Count);
             foreach (var ti in tracks)
             {
                 var kf = new KeyFrameInfo();
                 kf.Time = currentTime; //DurationPerStop * (currentKF - 1d);
-                kf.Width = width*baseScale*paddingScale;
-                kf.Height = height*baseScale*paddingScale;
-                kf.PanX = (ti.OffsetX - targetX)*baseScale;
-                kf.PanY = (ti.OffsetY - targetY)*baseScale;
+                kf.Width = width*paddingScale;//baseScale * paddingScale;
+                kf.Height = height*paddingScale;//baseScale * paddingScale;
+                kf.PanX = (ti.OffsetX - targetX); // paddingScale;
+                kf.PanY = (ti.OffsetY - targetY); // paddingScale;
+                kf.PanZ = numberOfTracksSqrt * 2250 * baseScale / paddingScale;
                 kf.KeyframeType = VideoKeyframeType.Slow;
                 ti.KeyFrames.Add(kf);
             }

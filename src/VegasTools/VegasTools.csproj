@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-  <PropertyGroup>
+    <PropertyGroup>
+      <MyProgramFiles>$(ProgramW6432)</MyProgramFiles>
+      <MyProgramFiles Condition="$(MyProgramFiles) == ''">$(ProgramFiles)</MyProgramFiles>
+    </PropertyGroup>
+	<PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{564819BD-9B84-40D2-B1EB-1CA5F9A12B49}</ProjectGuid>
@@ -36,7 +40,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Sony.Vegas">
-      <HintPath>..\..\..\..\Program Files\Sony\Vegas Pro 12.0\Sony.Vegas.dll</HintPath>
+      <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 13.0')">$(MyProgramFiles)\Sony\Vegas Pro 13.0\Sony.Vegas.dll</HintPath>
+      <HintPath Condition="'$(HintPath)' == '' ">$(MyProgramFiles)\Sony\Vegas Pro 12.0\Sony.Vegas.dll</HintPath>
+      <Private>False</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -88,7 +94,8 @@
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /Y "$(TargetPath)" "c:\users\duane\documents\Vegas Application Extensions\$(TargetFileName)"</PostBuildEvent>
+    <PostBuildEvent>mkdir "%25UserProfile%25\Documents\Vegas Application Extensions"
+copy /Y "$(TargetPath)" "%25UserProfile%25\Documents\Vegas Application Extensions\$(TargetFileName)"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -1,10 +1,14 @@
-#Vegas Tools - Community Extensions for Sony Vegas
+#Bluff - Community Extensions for Sony Vegas Pro
 
 [toc]
 
 ##Overview
 
-An Open Source project to extend ***Sony Vegas Pro*** through it's plugin model. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
+An Open Source project to to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed wsing **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
+
+##Getting it
+
+We hope to provide an official compiled version with installer soon. Until then follow the instruction in the Developer section.
 
 ##Current Commands
 
@@ -19,3 +23,15 @@ Orders the events in a track based on the name of the source media and then the 
 ###Randomize Events
 
 Randomizes selected events position in the timeline. Does not change the source track of an event.
+
+##Developer
+
+The project should be easy to build. After pulling the latest source you can go to the solution directory and run the following command:
+
+> msbuild .\VegasTools.sln /p:Platform="Any CPU"
+
+By default the solution will look for the DLL from either Sony Vegas Pro 13 or 12 (in that order). It has not been tested against v13, but should work.
+
+The project has post-build commands to copy the plugin dll to the current user's documents folder under the "Vegas Application Extensions" folder (Vegas scans this folder on startup).
+
+If you are going to add new features the most convenient way to work with Vegas that I have found is to go to the Debug tab of the project properties and set the Start Action to "Start external program" and put in the path to Vegas. This allows you to hit run and have Vegas start with your plugin loaded and the ability to break and debug through your changes.

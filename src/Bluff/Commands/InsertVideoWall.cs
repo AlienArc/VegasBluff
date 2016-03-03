@@ -6,7 +6,7 @@ using Bluff.VideoWall;
 
 namespace Bluff.Commands
 {
-    public static class InsertVideoWallCommand
+    public static class InsertVideoWall
     {
         public static void Execute(Vegas vegas)
         {

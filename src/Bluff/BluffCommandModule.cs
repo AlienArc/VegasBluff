@@ -28,6 +28,7 @@ namespace Bluff
             menu.AddChild(GetCreateVideoWallCommand());
             menu.AddChild(GetOrderEventsByNameAndTimeCommand());
             menu.AddChild(GetOrderEventsByRandomCommand());
+            menu.AddChild(GetSplitRegionCommand());
 
             return new[] { menu };
         }
@@ -36,7 +37,7 @@ namespace Bluff
         {
             var cmd = new CustomCommand(CommandCategory.Tools, "BluffCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
-            cmd.Invoked += (sender, args) => { InsertVideoWallCommand.Execute(CurrentVegas); };
+            cmd.Invoked += (sender, args) => { InsertVideoWall.Execute(CurrentVegas); };
             return cmd;
         }
 
@@ -44,7 +45,7 @@ namespace Bluff
         {
             var cmd = new CustomCommand(CommandCategory.Tools, "BluffOrderEventsByNameTime");
             cmd.DisplayName = "Order Events By Name and In Time";
-            cmd.Invoked += (sender, args) => { OrderEventsByNameAndTimeCommand.Execute(CurrentVegas); };
+            cmd.Invoked += (sender, args) => { OrderEventsByNameAndTime.Execute(CurrentVegas); };
             return cmd;
         }
 
@@ -52,10 +53,18 @@ namespace Bluff
         {
             var cmd = new CustomCommand(CommandCategory.Tools, "BluffRandomizeEvents");
             cmd.DisplayName = "Randomize Events";
-            cmd.Invoked += (sender, args) => { OrderEventsByRandomCommand.Execute(CurrentVegas); };
+            cmd.Invoked += (sender, args) => { OrderEventsByRandom.Execute(CurrentVegas); };
             return cmd;
         }
 
+
+        private CustomCommand GetSplitRegionCommand()
+        {
+            var cmd = new CustomCommand(CommandCategory.Tools, "BluffSplitRegion");
+            cmd.DisplayName = "Split Region";
+            cmd.Invoked += (sender, args) => { SplitRegion.Execute(CurrentVegas); };
+            return cmd;
+        }
 
     }
 }

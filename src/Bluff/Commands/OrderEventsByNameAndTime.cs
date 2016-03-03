@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Windows.Forms;
 using Sony.Vegas;
 using Bluff.Helpers;
 
 namespace Bluff.Commands
 {
-    public static class OrderEventsByRandomCommand
+    public static class OrderEventsByNameAndTime
     {
         public static void Execute(Vegas vegas)
         {
@@ -48,7 +47,7 @@ namespace Bluff.Commands
             var startTime = selectedTrackEvents[0].Start;
 
             //order the list
-            ListHelpers.Shuffle(selectedTrackEvents, new Random());
+            selectedTrackEvents.Sort(new TrackEventsNameTimeComparer());
 
             using (var undo = new UndoBlock("Order Events By Name And Time"))
             {

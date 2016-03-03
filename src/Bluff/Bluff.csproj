@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
-    <PropertyGroup>
-      <MyProgramFiles>$(ProgramW6432)</MyProgramFiles>
-      <MyProgramFiles Condition="$(MyProgramFiles) == ''">$(ProgramFiles)</MyProgramFiles>
-    </PropertyGroup>
-	<PropertyGroup>
+  <PropertyGroup>
+    <MyProgramFiles>$(ProgramW6432)</MyProgramFiles>
+    <MyProgramFiles Condition="$(MyProgramFiles) == ''">$(ProgramFiles)</MyProgramFiles>
+  </PropertyGroup>
+  <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{564819BD-9B84-40D2-B1EB-1CA5F9A12B49}</ProjectGuid>
@@ -52,12 +52,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\InsertVideoWallCommand.cs" />
+    <Compile Include="Commands\InsertVideoWall.cs" />
+    <Compile Include="Commands\SplitRegion.cs" />
     <Compile Include="Helpers\ListHelpers.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
     <Compile Include="Models\TrackInfo.cs" />
-    <Compile Include="Commands\OrderEventsByNameAndTimeCommand.cs" />
-    <Compile Include="Commands\OrderEventsByRandomCommand.cs" />
+    <Compile Include="Commands\OrderEventsByNameAndTime.cs" />
+    <Compile Include="Commands\OrderEventsByRandom.cs" />
     <Compile Include="Helpers\TrackEventsNameTimeComparer.cs" />
     <Compile Include="VideoWall\WallBuilder.cs" />
     <Compile Include="VideoWall\WallBuilderConfigurationView.cs">

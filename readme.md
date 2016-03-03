@@ -1,7 +1,5 @@
 #Bluff - Community Extensions for Sony Vegas Pro
 
-[toc]
-
 ##Overview
 
 An Open Source project to to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed wsing **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.

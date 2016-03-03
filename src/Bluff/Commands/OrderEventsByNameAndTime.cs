@@ -9,42 +9,11 @@ namespace Bluff.Commands
     {
         public static void Execute(Vegas vegas)
         {
+            var videoTracks = VegasHelper.GetTracks<VideoTrack>(vegas, 1);
+            
+            var selectedTrackEvents = VegasHelper.GetSelectedTrackEvents(videoTracks);
 
-            var selectedTracks = new List<VideoTrack>();
-            foreach (var track in vegas.Project.Tracks)
-            {
-                if (track.IsVideo())
-                {
-                    selectedTracks.Add((VideoTrack)track);
-                }
-            }
-
-            if (selectedTracks.Count == 0)
-            {
-                MessageBox.Show("Must have video tracks");
-                return;
-            }
-
-            var selectedTrackEvents = new List<TrackEvent>();
-
-            foreach (var selectedTrack in selectedTracks)
-            {
-                foreach (var trackEvent in selectedTrack.Events)
-                {
-                    if (trackEvent.Selected)
-                    {
-                        selectedTrackEvents.Add(trackEvent);
-                    }
-                }
-            }
-
-            if (selectedTrackEvents.Count == 0)
-            {
-                MessageBox.Show("Must have events selected");
-                return;
-            }
-
-            var startTime = selectedTrackEvents[0].Start;
+            var currentPosition = selectedTrackEvents[0].Start;
 
             //order the list
             selectedTrackEvents.Sort(new TrackEventsNameTimeComparer());
@@ -58,18 +27,16 @@ namespace Bluff.Commands
                     {
                         foreach (var groupedTrackEvents in selectedTrackEvent.Group)
                         {
-                            groupedTrackEvents.Start = startTime;
+                            groupedTrackEvents.Start = currentPosition;
                         }
                     }
                     else
                     {
-                        selectedTrackEvent.Start = startTime;
+                        selectedTrackEvent.Start = currentPosition;
                     }
-                    startTime += selectedTrackEvent.Length;
+                    currentPosition += selectedTrackEvent.Length;
                 }
             }
         }
-
-
     }
 }

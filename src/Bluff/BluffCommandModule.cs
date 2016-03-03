@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using Sony.Vegas;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
@@ -30,13 +29,14 @@ namespace Bluff
             menu.AddChild(GetOrderEventsByRandomCommand());
             menu.AddChild(GetSplitRegionCommand());
             menu.AddChild(GetConvertMarkersToRegionsCommand());
+            menu.AddChild(GetTrackAlongBezierCommand());
 
             return new[] { menu };
         }
 
         private CustomCommand GetCreateVideoWallCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "BluffCreateVideoWall");
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
             cmd.Invoked += (sender, args) => { InsertVideoWall.Execute(CurrentVegas); };
             return cmd;
@@ -44,7 +44,7 @@ namespace Bluff
 
         private CustomCommand GetOrderEventsByNameAndTimeCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "BluffOrderEventsByNameTime");
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffOrderEventsByNameTime");
             cmd.DisplayName = "Order Events By Name and In Time";
             cmd.Invoked += (sender, args) => { OrderEventsByNameAndTime.Execute(CurrentVegas); };
             return cmd;
@@ -52,7 +52,7 @@ namespace Bluff
 
         private CustomCommand GetOrderEventsByRandomCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "BluffRandomizeEvents");
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffRandomizeEvents");
             cmd.DisplayName = "Randomize Events";
             cmd.Invoked += (sender, args) => { OrderEventsByRandom.Execute(CurrentVegas); };
             return cmd;
@@ -60,7 +60,7 @@ namespace Bluff
 
         private CustomCommand GetSplitRegionCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "BluffSplitRegion");
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffSplitRegion");
             cmd.DisplayName = "Split Region";
             cmd.Invoked += (sender, args) => { SplitRegion.Execute(CurrentVegas); };
             return cmd;
@@ -68,9 +68,17 @@ namespace Bluff
 
         private CustomCommand GetConvertMarkersToRegionsCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "BluffConvertMarkersToRegions");
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffConvertMarkersToRegions");
             cmd.DisplayName = "Convert Markers To Regions";
             cmd.Invoked += (sender, args) => { ConvertMarkersToRegions.Execute(CurrentVegas); };
+            return cmd;
+        }
+
+        private CustomCommand GetTrackAlongBezierCommand()
+        {
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffTrackAlongBezier");
+            cmd.DisplayName = "Track Along Bezier";
+            cmd.Invoked += (sender, args) => { TrackAlongBezier.Execute(CurrentVegas); };
             return cmd;
         }
 

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Windows.Forms;
+using Bluff.Helpers;
 using Sony.Vegas;
 using Bluff.Models;
 using Bluff.VideoWall;
@@ -20,7 +21,7 @@ namespace Bluff.Commands
             {
                 var trackNumber = 0;
 
-                var videoTracks = GetCurrentVideoTracks(vegas);
+                var videoTracks = VegasHelper.GetTracks<VideoTrack>(vegas); 
 
                 foreach (var track in wallTracks)
                 {
@@ -41,19 +42,6 @@ namespace Bluff.Commands
                 return false;
             }
             return true;
-        }
-
-        private static List<VideoTrack> GetCurrentVideoTracks(Vegas vegas)
-        {
-            var videoTracks = new List<VideoTrack>();
-            foreach (var track in vegas.Project.Tracks)
-            {
-                if (track.IsVideo())
-                {
-                    videoTracks.Add((VideoTrack) track);
-                }
-            }
-            return videoTracks;
         }
 
         private static VideoTrack SelectOrInsertVideoTrack(Vegas vegas, List<VideoTrack> videoTracks, int trackNumber)

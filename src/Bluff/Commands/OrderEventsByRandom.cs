@@ -10,47 +10,16 @@ namespace Bluff.Commands
     {
         public static void Execute(Vegas vegas)
         {
+            var videoTracks = VegasHelper.GetTracks<VideoTrack>(vegas, 1);
 
-            var selectedTracks = new List<VideoTrack>();
-            foreach (var track in vegas.Project.Tracks)
-            {
-                if (track.IsVideo())
-                {
-                    selectedTracks.Add((VideoTrack)track);
-                }
-            }
+            var selectedTrackEvents = VegasHelper.GetSelectedTrackEvents(videoTracks);
 
-            if (selectedTracks.Count == 0)
-            {
-                MessageBox.Show("Must have video tracks");
-                return;
-            }
-
-            var selectedTrackEvents = new List<TrackEvent>();
-
-            foreach (var selectedTrack in selectedTracks)
-            {
-                foreach (var trackEvent in selectedTrack.Events)
-                {
-                    if (trackEvent.Selected)
-                    {
-                        selectedTrackEvents.Add(trackEvent);
-                    }
-                }
-            }
-
-            if (selectedTrackEvents.Count == 0)
-            {
-                MessageBox.Show("Must have events selected");
-                return;
-            }
-
-            var startTime = selectedTrackEvents[0].Start;
+            var currentPosition = selectedTrackEvents[0].Start;
 
             //order the list
             ListHelpers.Shuffle(selectedTrackEvents, new Random());
 
-            using (var undo = new UndoBlock("Order Events By Name And Time"))
+            using (var undo = new UndoBlock("Randomize Events"))
             {
                 //update order of the events
                 foreach (var selectedTrackEvent in selectedTrackEvents)
@@ -59,14 +28,14 @@ namespace Bluff.Commands
                     {
                         foreach (var groupedTrackEvents in selectedTrackEvent.Group)
                         {
-                            groupedTrackEvents.Start = startTime;
+                            groupedTrackEvents.Start = currentPosition;
                         }
                     }
                     else
                     {
-                        selectedTrackEvent.Start = startTime;
+                        selectedTrackEvent.Start = currentPosition;
                     }
-                    startTime += selectedTrackEvent.Length;
+                    currentPosition += selectedTrackEvent.Length;
                 }
             }
         }

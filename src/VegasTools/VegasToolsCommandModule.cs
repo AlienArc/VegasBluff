@@ -7,7 +7,7 @@ using VegasTools.Commands;
 
 namespace VegasTools
 {
-    public class VegasToolsModule : ICustomCommandModule
+    public class VegasToolsCommandModule : ICustomCommandModule
     {
 
         Vegas CurrentVegas;
@@ -19,19 +19,22 @@ namespace VegasTools
 
         public ICollection GetCustomCommands()
         {
-            
-            var menu = new CustomCommand(CommandCategory.Tools, "NewmanVegasTools");
-            menu.DisplayName = "Duane's Vegas Tools";
+
+            var menu = new CustomCommand(CommandCategory.Tools, "CommunityVegasTools")
+            {
+                DisplayName = "Community Vegas Tools"
+            };
 
             menu.AddChild(GetCreateVideoWallCommand());
             menu.AddChild(GetOrderEventsByNameAndTimeCommand());
+            menu.AddChild(GetOrderEventsByRandomCommand());
 
-            return new CustomCommand[] { menu };
+            return new[] { menu };
         }
 
         private CustomCommand GetCreateVideoWallCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanCreateVideoWall");
+            var cmd = new CustomCommand(CommandCategory.Tools, "CVTCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
             cmd.Invoked += (sender, args) => { InsertVideoWallCommand.Execute(CurrentVegas); };
             return cmd;
@@ -39,7 +42,7 @@ namespace VegasTools
 
         private CustomCommand GetOrderEventsByNameAndTimeCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanOrderEventsByNameTime");
+            var cmd = new CustomCommand(CommandCategory.Tools, "CVTOrderEventsByNameTime");
             cmd.DisplayName = "Order Events By Name and In Time";
             cmd.Invoked += (sender, args) => { OrderEventsByNameAndTimeCommand.Execute(CurrentVegas); };
             return cmd;
@@ -47,7 +50,7 @@ namespace VegasTools
 
         private CustomCommand GetOrderEventsByRandomCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "NewmanRandomizeEvents");
+            var cmd = new CustomCommand(CommandCategory.Tools, "CVTRandomizeEvents");
             cmd.DisplayName = "Randomize Events";
             cmd.Invoked += (sender, args) => { OrderEventsByRandomCommand.Execute(CurrentVegas); };
             return cmd;

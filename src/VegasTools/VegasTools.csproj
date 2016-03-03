@@ -60,7 +60,7 @@
     <Compile Include="VideoWall\WallBuilderConfigurationView.Designer.cs">
       <DependentUpon>WallBuilderConfigurationView.cs</DependentUpon>
     </Compile>
-    <Compile Include="VegasToolsModule.cs" />
+    <Compile Include="VegasToolsCommandModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="VideoWall\WallBuilderConfiguration.cs" />
     <EmbeddedResource Include="VideoWall\WallBuilderConfigurationView.resx">

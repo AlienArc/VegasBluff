@@ -20,9 +20,9 @@ namespace Bluff
         public ICollection GetCustomCommands()
         {
 
-            var menu = new CustomCommand(CommandCategory.Tools, "CommunityBluff")
+            var menu = new CustomCommand(CommandCategory.Tools, "Bluff")
             {
-                DisplayName = "Community Vegas Tools"
+                DisplayName = "Bluff"
             };
 
             menu.AddChild(GetCreateVideoWallCommand());
@@ -34,7 +34,7 @@ namespace Bluff
 
         private CustomCommand GetCreateVideoWallCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "CVTCreateVideoWall");
+            var cmd = new CustomCommand(CommandCategory.Tools, "BluffCreateVideoWall");
             cmd.DisplayName = "Create Video Wall";
             cmd.Invoked += (sender, args) => { InsertVideoWallCommand.Execute(CurrentVegas); };
             return cmd;
@@ -42,7 +42,7 @@ namespace Bluff
 
         private CustomCommand GetOrderEventsByNameAndTimeCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "CVTOrderEventsByNameTime");
+            var cmd = new CustomCommand(CommandCategory.Tools, "BluffOrderEventsByNameTime");
             cmd.DisplayName = "Order Events By Name and In Time";
             cmd.Invoked += (sender, args) => { OrderEventsByNameAndTimeCommand.Execute(CurrentVegas); };
             return cmd;
@@ -50,7 +50,7 @@ namespace Bluff
 
         private CustomCommand GetOrderEventsByRandomCommand()
         {
-            var cmd = new CustomCommand(CommandCategory.Tools, "CVTRandomizeEvents");
+            var cmd = new CustomCommand(CommandCategory.Tools, "BluffRandomizeEvents");
             cmd.DisplayName = "Randomize Events";
             cmd.Invoked += (sender, args) => { OrderEventsByRandomCommand.Execute(CurrentVegas); };
             return cmd;

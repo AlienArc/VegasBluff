@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System;
+using System.Text;
 using Sony.Vegas;
 using System.Collections;
 using System.Security.Cryptography.X509Certificates;
@@ -6,10 +7,11 @@ using Bluff.Commands;
 
 namespace Bluff
 {
+    public delegate void VegasCommandDelegate(Vegas vegas);
+
     public class BluffCommandModule : ICustomCommandModule
     {
-
-        Vegas CurrentVegas;
+        private Vegas CurrentVegas { get; set; }
 
         public void InitializeModule(Vegas vegas)
         {
@@ -38,8 +40,8 @@ namespace Bluff
                 DisplayName = "Motion"
             };
 
-            subMenu.AddChild(GetCreateVideoWallCommand());
-            subMenu.AddChild(GetTrackAlongBezierCommand());
+            subMenu.AddChild(CreateToolMenuItem("BluffCreateVideoWall", "Create Video Wall", InsertVideoWall.Execute));
+            subMenu.AddChild(CreateToolMenuItem("BluffTrackAlongBezier", "Track Along Bezier", TrackAlongBezier.Execute));
 
             return subMenu;
         }
@@ -51,8 +53,8 @@ namespace Bluff
                 DisplayName = "Events"
             };
 
-            subMenu.AddChild(GetOrderEventsByNameAndTimeCommand());
-            subMenu.AddChild(GetOrderEventsByRandomCommand());
+            subMenu.AddChild(CreateToolMenuItem("BluffOrderEventsByNameTime", "Order Events By Name and In Time", OrderEventsByNameAndTime.Execute));
+            subMenu.AddChild(CreateToolMenuItem("BluffRandomizeEvents", "Randomize Events", OrderEventsByRandom.Execute));
 
             return subMenu;
         }
@@ -64,66 +66,18 @@ namespace Bluff
                 DisplayName = "Marker And Regions"
             };
 
-            subMenu.AddChild(GetConvertMarkersToRegionsCommand());
-            subMenu.AddChild(GetReorderMarkersCommand());
-            subMenu.AddChild(GetSplitRegionCommand());
-
+            subMenu.AddChild(CreateToolMenuItem("BluffConvertMarkersToRegions", "Convert Markers To Regions", ConvertMarkersToRegions.Execute));
+            subMenu.AddChild(CreateToolMenuItem("BluffReorderMarkers", "Reorder Markers", ReorderMarkers.Execute));
+            subMenu.AddChild(CreateToolMenuItem("BluffSplitRegion", "Split Region", SplitRegion.Execute));
+            
             return subMenu;
         }
 
-        private CustomCommand GetCreateVideoWallCommand()
+        private BluffCustomCommand CreateToolMenuItem(string menuName, string display, VegasCommandDelegate command)
         {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffCreateVideoWall");
-            cmd.DisplayName = "Create Video Wall";
-            cmd.Invoked += (sender, args) => { InsertVideoWall.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetOrderEventsByNameAndTimeCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffOrderEventsByNameTime");
-            cmd.DisplayName = "Order Events By Name and In Time";
-            cmd.Invoked += (sender, args) => { OrderEventsByNameAndTime.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetOrderEventsByRandomCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffRandomizeEvents");
-            cmd.DisplayName = "Randomize Events";
-            cmd.Invoked += (sender, args) => { OrderEventsByRandom.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetSplitRegionCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffSplitRegion");
-            cmd.DisplayName = "Split Region";
-            cmd.Invoked += (sender, args) => { SplitRegion.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetConvertMarkersToRegionsCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffConvertMarkersToRegions");
-            cmd.DisplayName = "Convert Markers To Regions";
-            cmd.Invoked += (sender, args) => { ConvertMarkersToRegions.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetTrackAlongBezierCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffTrackAlongBezier");
-            cmd.DisplayName = "Track Along Bezier";
-            cmd.Invoked += (sender, args) => { TrackAlongBezier.Execute(CurrentVegas); };
-            return cmd;
-        }
-
-        private CustomCommand GetReorderMarkersCommand()
-        {
-            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffReorderMarkers");
-            cmd.DisplayName = "Reorder Markers";
-            cmd.Invoked += (sender, args) => { ReorderMarkers.Execute(CurrentVegas); };
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, menuName);
+            cmd.DisplayName = display;
+            cmd.Invoked += (sender, args) => { command(CurrentVegas); };
             return cmd;
         }
 

@@ -22,6 +22,18 @@ Orders the events in a track based on the name of the source media and then the 
 
 Randomizes selected events position in the timeline. Does not change the source track of an event.
 
+###Split Region
+
+Splits the region under the timeline position into two regions at the current position.
+
+###Convert Markers To Regions
+
+Itterates through markers and creates a region between every two markers.
+
+###Track Along Bezier (in progress)
+
+Creates a path that moves along a bezier line.
+
 ##Developer
 
 The project should be easy to build. After pulling the latest source you can go to the solution directory and run the following command:

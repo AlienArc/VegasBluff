@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+using Bluff.Helpers;
 using Sony.Vegas;
 
 namespace Bluff.Commands
@@ -15,7 +17,7 @@ namespace Bluff.Commands
 
             using (var undo = new UndoBlock("Convert Markers To Regions"))
             {
-                foreach (var marker in proj.Markers)
+                foreach (var marker in VegasHelper.GetMarkersByTimecode(proj))
                 {
                     if (fistMarker == null)
                     {

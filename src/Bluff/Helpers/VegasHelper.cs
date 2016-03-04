@@ -58,5 +58,17 @@ namespace Bluff.Helpers
             }
             return selectedTrackEvents;
         }
+
+        public static List<Marker> GetMarkersByTimecode(Project proj)
+        {
+            var markers = new List<Marker>(proj.Markers);
+            markers.Sort((Comparison<Marker>) MarkerTimecodeComparer);
+            return markers;
+        }
+
+        private static int MarkerTimecodeComparer(Marker x, Marker y)
+        {
+            return x.Position.CompareTo(y.Position);
+        }
     }
 }

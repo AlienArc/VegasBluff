@@ -14,44 +14,55 @@ namespace Bluff.Commands
 
             var selectedTracks = VegasHelper.GetTracks<VideoTrack>(vegas, 1, onlySelected: true);
 
-            BezierMotionConfig config = GetConfig(selectedTracks);
+            var config = GetConfig(selectedTracks);
 
-            List<PointInSpace> points = GetPoints(config);
+            var points = GetPoints(config);
 
             //long startingTimeStep = (long)(config.TotalSeconds - config.TotalSecondsPerTrack) / (config.NumberOfTracks - 1);
+            var width = vegas.Project.Video.Width;
+            var height = vegas.Project.Video.Height;
 
-            for (int trackIndex = 0; trackIndex < config.NumberOfTracks; trackIndex++)
+            using (var undo = new UndoBlock("Track Along Bezier"))
             {
-                long timeFrame = (long)(trackIndex * config.SecondsBetweenFrames * 24);
-
-                VideoTrack selectedTrack = selectedTracks[config.NumberOfTracks - trackIndex - 1];
-                selectedTrack.TrackMotion.MotionKeyframes.Clear();
-
-                foreach (PointInSpace point in points)
+                for (var trackIndex = 0; trackIndex < config.NumberOfTracks; trackIndex++)
                 {
-                    TrackMotionKeyframe mkf = null;
-                    if (timeFrame == 0)
-                    {
-                        mkf = selectedTrack.TrackMotion.MotionKeyframes[0];
-                    }
-                    else
-                    {
-                        mkf = selectedTrack.TrackMotion.InsertMotionKeyframe(Timecode.FromFrames(timeFrame));
-                    }
-                    mkf.Width = 1920 * point.z;
-                    mkf.Height = 1080 * point.z;
-                    mkf.PositionX = point.x - (1920 / 2);
-                    mkf.PositionY = point.y - (1080 / 2);
+                    var timeFrame = (long)(trackIndex * config.SecondsBetweenFrames * 24);
 
-                    timeFrame += (24 / config.StepsPerSecond);
-                }
+                    var selectedTrack = selectedTracks[config.NumberOfTracks - trackIndex - 1];
+                    selectedTrack.TrackMotion.MotionKeyframes.Clear();
+
+                    foreach (var point in points)
+                    {
+                        var mkf = GetOrCreateTrackMotionKeyframe(timeFrame, selectedTrack);
+                        mkf.Width = width * point.z;
+                        mkf.Height = height * point.z;
+                        mkf.PositionX = point.x - (width / 2d);
+                        mkf.PositionY = point.y - (height / 2d);
+
+                        timeFrame += (24 / config.StepsPerSecond);
+                    }
+                } 
             }
 
         }
 
+        private static TrackMotionKeyframe GetOrCreateTrackMotionKeyframe(long timeFrame, VideoTrack selectedTrack)
+        {
+            TrackMotionKeyframe mkf = null;
+            if (timeFrame == 0)
+            {
+                mkf = selectedTrack.TrackMotion.MotionKeyframes[0];
+            }
+            else
+            {
+                mkf = selectedTrack.TrackMotion.InsertMotionKeyframe(Timecode.FromFrames(timeFrame));
+            }
+            return mkf;
+        }
+
         private static BezierMotionConfig GetConfig(List<VideoTrack> selectedTracks)
         {
-            BezierMotionConfig config = new BezierMotionConfig();
+            var config = new BezierMotionConfig();
             config.NumberOfTracks = selectedTracks.Count;
             config.SecondsBetweenFrames = 3d;
             config.TotalSecondsPerTrack = 15;
@@ -59,7 +70,7 @@ namespace Bluff.Commands
             config.StepsPerSecond = 12;
             config.point4 = new PointInSpace();
             config.point4.z = .3;
-            config.point4.x = -192;
+            config.point4.x = -288;
             config.point4.y = 540;
             config.point3 = new PointInSpace();
             config.point3.x = 206;
@@ -80,11 +91,11 @@ namespace Bluff.Commands
         {
             //List<List<PointInSpace>> trackPoints = new List<List<PointInSpace>>();
 
-            double stepSize = 1 / (config.TotalSecondsPerTrack * config.StepsPerSecond);
+            var stepSize = 1 / (config.TotalSecondsPerTrack * config.StepsPerSecond);
 
             //for (int trackIndex = 0; trackIndex < config.NumberOfTracks; trackIndex++)
             //{			
-            List<PointInSpace> points = new List<PointInSpace>();
+            var points = new List<PointInSpace>();
 
             for (double i = 0; i < 1; i += stepSize)
             {

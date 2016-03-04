@@ -2,7 +2,7 @@
 
 ##Overview
 
-An Open Source project to to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed wsing **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
+An Open Source project to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed using **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
 
 ##Getting it
 
@@ -14,15 +14,15 @@ We hope to provide an official compiled version with installer soon. Until then 
 
 ####Create Video Wall
 
-Creates a "wall" of video tracks using track motion. Does flyover zooming in and out between tracks. Usefull to show lots of individual clips with quick highlights.
+Creates a "wall" of video tracks using track motion. Does flyover zooming in and out between tracks. Useful to show lots of individual clips with quick highlights.
 
 ####Track Along Bezier (in progress)
 
-Creates a path that moves along a bezier line.
+Creates a path that moves along a Bezier line.
 
 ###Events
 
-####Order Events By Name and In Time
+####Order Events by Name and In Time
 
 Orders the events in a track based on the name of the source media and then the starting offset of the current event based on the source media. Does not change the source track of an event, just the starting time. Grouped events all get the same start time (will change to keep relative time position in the future).
 
@@ -32,9 +32,9 @@ Randomizes selected events position in the timeline. Does not change the source 
 
 ###Region and Markers
 
-####Convert Markers To Regions
+####Convert Markers to Regions
 
-Itterates through markers and creates a region between every two markers.
+Iterates through markers and creates a region between every two markers.
 
 ####Reorder Markers
 

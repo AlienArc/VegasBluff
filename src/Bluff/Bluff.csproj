@@ -56,11 +56,13 @@
     <Compile Include="BluffException.cs" />
     <Compile Include="Commands\ConvertMarkersToRegions.cs" />
     <Compile Include="Commands\InsertVideoWall.cs" />
+    <Compile Include="Commands\ReorderMarkers.cs" />
     <Compile Include="Commands\SplitRegion.cs" />
     <Compile Include="Commands\TrackAlongBezier.cs" />
     <Compile Include="Helpers\ListHelpers.cs" />
     <Compile Include="Helpers\VegasHelper.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
+    <Compile Include="Models\MarkerInfo.cs" />
     <Compile Include="Models\TrackInfo.cs" />
     <Compile Include="Commands\OrderEventsByNameAndTime.cs" />
     <Compile Include="Commands\OrderEventsByRandom.cs" />

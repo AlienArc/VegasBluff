@@ -10,29 +10,39 @@ We hope to provide an official compiled version with installer soon. Until then 
 
 ##Current Commands
 
-### Create Video Wall
+###Track Motion
+
+####Create Video Wall
 
 Creates a "wall" of video tracks using track motion. Does flyover zooming in and out between tracks. Usefull to show lots of individual clips with quick highlights.
 
-###Order Events By Name and In Time
+####Track Along Bezier (in progress)
+
+Creates a path that moves along a bezier line.
+
+###Events
+
+####Order Events By Name and In Time
 
 Orders the events in a track based on the name of the source media and then the starting offset of the current event based on the source media. Does not change the source track of an event, just the starting time. Grouped events all get the same start time (will change to keep relative time position in the future).
 
-###Randomize Events
+####Randomize Events
 
 Randomizes selected events position in the timeline. Does not change the source track of an event.
 
-###Split Region
+###Region and Markers
 
-Splits the region under the timeline position into two regions at the current position.
-
-###Convert Markers To Regions
+####Convert Markers To Regions
 
 Itterates through markers and creates a region between every two markers.
 
-###Track Along Bezier (in progress)
+####Reorder Markers
 
-Creates a path that moves along a bezier line.
+Reorders the markers in the project to be sequential.
+
+####Split Region
+
+Splits the region under the timeline position into two regions at the current position.
 
 ##Developer
 

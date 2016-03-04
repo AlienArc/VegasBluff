@@ -24,14 +24,51 @@ namespace Bluff
                 DisplayName = "Bluff"
             };
 
-            menu.AddChild(GetCreateVideoWallCommand());
-            menu.AddChild(GetOrderEventsByNameAndTimeCommand());
-            menu.AddChild(GetOrderEventsByRandomCommand());
-            menu.AddChild(GetSplitRegionCommand());
-            menu.AddChild(GetConvertMarkersToRegionsCommand());
-            menu.AddChild(GetTrackAlongBezierCommand());
+            menu.AddChild(BuildTrackMotionMenu());
+            menu.AddChild(BuildEventMenu());
+            menu.AddChild(BuildMarkerAndRegionMenu());
 
             return new[] { menu };
+        }
+
+        private CustomCommand BuildTrackMotionMenu()
+        {
+            var subMenu = new CustomCommand(CommandCategory.Tools, "BluffMotion")
+            {
+                DisplayName = "Motion"
+            };
+
+            subMenu.AddChild(GetCreateVideoWallCommand());
+            subMenu.AddChild(GetTrackAlongBezierCommand());
+
+            return subMenu;
+        }
+
+        private CustomCommand BuildEventMenu()
+        {
+            var subMenu = new CustomCommand(CommandCategory.Tools, "BluffEvent")
+            {
+                DisplayName = "Events"
+            };
+
+            subMenu.AddChild(GetOrderEventsByNameAndTimeCommand());
+            subMenu.AddChild(GetOrderEventsByRandomCommand());
+
+            return subMenu;
+        }
+
+        private CustomCommand BuildMarkerAndRegionMenu()
+        {
+            var subMenu = new CustomCommand(CommandCategory.Tools, "BluffMarkerAndRegion")
+            {
+                DisplayName = "Marker And Regions"
+            };
+
+            subMenu.AddChild(GetConvertMarkersToRegionsCommand());
+            subMenu.AddChild(GetReorderMarkersCommand());
+            subMenu.AddChild(GetSplitRegionCommand());
+
+            return subMenu;
         }
 
         private CustomCommand GetCreateVideoWallCommand()
@@ -79,6 +116,14 @@ namespace Bluff
             var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffTrackAlongBezier");
             cmd.DisplayName = "Track Along Bezier";
             cmd.Invoked += (sender, args) => { TrackAlongBezier.Execute(CurrentVegas); };
+            return cmd;
+        }
+
+        private CustomCommand GetReorderMarkersCommand()
+        {
+            var cmd = new BluffCustomCommand(CommandCategory.Tools, "BluffReorderMarkers");
+            cmd.DisplayName = "Reorder Markers";
+            cmd.Invoked += (sender, args) => { ReorderMarkers.Execute(CurrentVegas); };
             return cmd;
         }
 

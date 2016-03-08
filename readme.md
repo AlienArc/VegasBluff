@@ -30,7 +30,7 @@ If you are going to add new features the most convenient way to work with Vegas 
 
 Creates a "wall" of video tracks using track motion. Does flyover zooming in and out between tracks. Useful to show lots of individual clips with quick highlights.
 
-####Track Along Bezier (in progress)
+####Track Along Bezier (beta)
 
 Creates a path that moves along a Bezier line.
 

@@ -41,8 +41,9 @@ namespace Bluff
             };
 
             subMenu.AddChild(CreateToolMenuItem("BluffCreateVideoWall", "Create Video Wall", InsertVideoWall.Execute));
+#if DEBUG
             subMenu.AddChild(CreateToolMenuItem("BluffTrackAlongBezier", "Track Along Bezier", TrackAlongBezier.Execute));
-
+#endif
             return subMenu;
         }
 

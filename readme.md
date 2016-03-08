@@ -4,9 +4,23 @@
 
 An Open Source project to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed using **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
 
+Requires Sony Vegas Pro. Tested and built against Sony Vegas Pro 12, and should also work with version 13.
+
 ##Getting it
 
 We hope to provide an official compiled version with installer soon. Until then follow the instruction in the Developer section.
+
+##Developer
+
+The project should be easy to build. After pulling the latest source you can go to the solution directory and run the following command:
+
+> msbuild .\VegasTools.sln /p:Platform="Any CPU"
+
+By default the solution will look for the DLL from either Sony Vegas Pro 13 or 12 (in that order). It has not been tested against v13, but should work.
+
+The project has post-build commands to copy the plugin dll to the current user's documents folder under the "Vegas Application Extensions" folder (Vegas scans this folder on startup).
+
+If you are going to add new features the most convenient way to work with Vegas that I have found is to go to the Debug tab of the project properties and set the Start Action to "Start external program" and put in the path to Vegas. This allows you to hit run and have Vegas start with your plugin loaded and the ability to break and debug through your changes.
 
 ##Current Commands
 
@@ -43,15 +57,3 @@ Reorders the markers in the project to be sequential.
 ####Split Region
 
 Splits the region under the timeline position into two regions at the current position.
-
-##Developer
-
-The project should be easy to build. After pulling the latest source you can go to the solution directory and run the following command:
-
-> msbuild .\VegasTools.sln /p:Platform="Any CPU"
-
-By default the solution will look for the DLL from either Sony Vegas Pro 13 or 12 (in that order). It has not been tested against v13, but should work.
-
-The project has post-build commands to copy the plugin dll to the current user's documents folder under the "Vegas Application Extensions" folder (Vegas scans this folder on startup).
-
-If you are going to add new features the most convenient way to work with Vegas that I have found is to go to the Debug tab of the project properties and set the Start Action to "Start external program" and put in the path to Vegas. This allows you to hit run and have Vegas start with your plugin loaded and the ability to break and debug through your changes.

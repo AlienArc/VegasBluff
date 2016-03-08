@@ -8,7 +8,16 @@ Requires Sony Vegas Pro. Tested and built against Sony Vegas Pro 12, and should 
 
 ##Getting it
 
-We hope to provide an official compiled version with installer soon. Until then follow the instruction in the Developer section.
+To install the extension just download the current [release](https://github.com/AlienArc/VegasBluff/releases/latest "latest release") then follow these simple steps:
+
+1. Extract the contents of the archive
+2. Place the dll in one of the following locations:
+* *MyDocuments*\Vegas Application Extensions\  
+* *AppData*\Sony\Vegas Pro\Application Extensions\ 
+* *ProgramData*\Sony\Vegas Pro\Application Extensions\ 
+3. Look for the new "Bluff" menu under Tools->Extensions
+
+We hope to have an official installer soon.
 
 ##Developer
 

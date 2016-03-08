@@ -12,9 +12,9 @@ To install the extension just download the current [release](https://github.com/
 
 1. Extract the contents of the archive
 2. Place the dll in one of the following locations:
-* *MyDocuments*\Vegas Application Extensions\  
-* *AppData*\Sony\Vegas Pro\Application Extensions\ 
-* *ProgramData*\Sony\Vegas Pro\Application Extensions\ 
+ * *MyDocuments*\Vegas Application Extensions\  
+ * *AppData*\Sony\Vegas Pro\Application Extensions\ 
+ * *ProgramData*\Sony\Vegas Pro\Application Extensions\ 
 3. Look for the new "Bluff" menu under Tools->Extensions
 
 We hope to have an official installer soon.

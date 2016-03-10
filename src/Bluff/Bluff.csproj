@@ -135,6 +135,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Bluff.ico" />
+    <Content Include="Images\Bluff-256.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Images\Bluff-128.png" />

@@ -42,7 +42,9 @@ namespace Bluff
             var fileName = Path.Combine(tempPath, string.Format("{0}.png", imageResourceName));
             var resourceName = string.Format("Bluff.Images.{0}.png", imageResourceName);
 
+#if !DEBUG
             if (File.Exists(fileName)) return fileName;
+#endif
 
             using (var resource = assembly.GetManifestResourceStream(resourceName))
             {

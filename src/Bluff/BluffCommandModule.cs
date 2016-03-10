@@ -30,6 +30,7 @@ namespace Bluff
             menu.AddChild(BuildEventMenu());
             menu.AddChild(BuildMarkerAndRegionMenu());
 
+            menu.AddChild(CreateToolMenuItem("BluffZZZHelpAbout", "About Bluff", ShowAboutBluff));
             return new[] { menu };
         }
 
@@ -72,6 +73,11 @@ namespace Bluff
             subMenu.AddChild(CreateToolMenuItem("BluffSplitRegion", "Split Region", SplitRegion.Execute));
             
             return subMenu;
+        }
+        private void ShowAboutBluff(Vegas vegas)
+        {
+            var aboutBluff = new AboutBluff();
+            aboutBluff.ShowDialog();
         }
 
         private BluffCustomCommand CreateToolMenuItem(string menuName, string display, VegasCommandDelegate command)

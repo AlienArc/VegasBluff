@@ -2,7 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
+using Bluff.Bezier;
 using Bluff.Helpers;
+using Bluff.Models;
 using Sony.Vegas;
 
 namespace Bluff.Commands
@@ -13,37 +15,47 @@ namespace Bluff.Commands
         {
 
             var selectedTracks = VegasHelper.GetTracks<VideoTrack>(vegas, 1, onlySelected: true);
+            var framerate = (int)Math.Round(vegas.Project.Video.FrameRate, 0, MidpointRounding.AwayFromZero);
 
-            var config = GetConfig(selectedTracks);
+            var config = GetConfig(selectedTracks, framerate);
 
             var points = GetPoints(config);
 
-            //long startingTimeStep = (long)(config.TotalSeconds - config.TotalSecondsPerTrack) / (config.NumberOfTracks - 1);
+            var startingFrame = vegas.Transport.CursorPosition.FrameCount;
+
             var width = vegas.Project.Video.Width;
             var height = vegas.Project.Video.Height;
+
+            var framesPerStep = (framerate / config.StepsPerSecond);
 
             using (var undo = new UndoBlock("Track Along Bezier"))
             {
                 for (var trackIndex = 0; trackIndex < config.NumberOfTracks; trackIndex++)
                 {
-                    var timeFrame = (long)(trackIndex * config.SecondsBetweenFrames * 24);
+                    var currentFrame = startingFrame + (long)(trackIndex * config.SecondsBetweenTracks * 24);
 
                     var selectedTrack = selectedTracks[config.NumberOfTracks - trackIndex - 1];
                     selectedTrack.TrackMotion.MotionKeyframes.Clear();
 
                     foreach (var point in points)
                     {
-                        var mkf = GetOrCreateTrackMotionKeyframe(timeFrame, selectedTrack);
-                        mkf.Width = width * point.z;
-                        mkf.Height = height * point.z;
-                        mkf.PositionX = point.x - (width / 2d);
-                        mkf.PositionY = point.y - (height / 2d);
+                        SetTrackMotionKeyFrame(currentFrame, selectedTrack, width, point, height);
 
-                        timeFrame += (24 / config.StepsPerSecond);
+                        currentFrame += framesPerStep;
                     }
                 } 
             }
 
+        }
+
+        private static void SetTrackMotionKeyFrame(long currentFrame, VideoTrack selectedTrack, int width, PointInSpace point,
+            int height)
+        {
+            var mkf = GetOrCreateTrackMotionKeyframe(currentFrame, selectedTrack);
+            mkf.Width = width*point.Zoom;
+            mkf.Height = height*point.Zoom;
+            mkf.PositionX = point.X - (width/2d);
+            mkf.PositionY = point.Y - (height/2d);
         }
 
         private static TrackMotionKeyframe GetOrCreateTrackMotionKeyframe(long timeFrame, VideoTrack selectedTrack)
@@ -60,89 +72,69 @@ namespace Bluff.Commands
             return mkf;
         }
 
-        private static BezierMotionConfig GetConfig(List<VideoTrack> selectedTracks)
+        private static BezierMotionConfig GetConfig(List<VideoTrack> selectedTracks, int frameRate)
         {
             var config = new BezierMotionConfig();
             config.NumberOfTracks = selectedTracks.Count;
-            config.SecondsBetweenFrames = 3d;
+            config.SecondsBetweenTracks = 3d;
             config.TotalSecondsPerTrack = 15;
-            config.TotalSeconds = ((selectedTracks.Count - 1) * config.SecondsBetweenFrames) + config.TotalSecondsPerTrack;
-            config.StepsPerSecond = 12;
-            config.point4 = new PointInSpace();
-            config.point4.z = .3;
-            config.point4.x = -288;
-            config.point4.y = 540;
-            config.point3 = new PointInSpace();
-            config.point3.x = 206;
-            config.point3.y = 331;
-            config.point3.z = .3;
-            config.point2 = new PointInSpace();
-            config.point2.x = 1400;//1050;
-            config.point2.y = 225;
-            config.point2.z = .3;
-            config.point1 = new PointInSpace();
-            config.point1.z = .3;
-            config.point1.x = 2304;
-            config.point1.y = 400;
+            
+            config.StepsPerSecond = frameRate;
+            config.Point4 = new PointInSpace();
+            config.Point4.Zoom = .3;
+            config.Point4.X = -288;
+            config.Point4.Y = 540;
+            config.Point3 = new PointInSpace();
+            config.Point3.X = 206;
+            config.Point3.Y = 331;
+            config.Point3.Zoom = .3;
+            config.Point2 = new PointInSpace();
+            config.Point2.X = 1400;//1050;
+            config.Point2.Y = 225;
+            config.Point2.Zoom = .3;
+            config.Point1 = new PointInSpace();
+            config.Point1.Zoom = .3;
+            config.Point1.X = 2304;
+            config.Point1.Y = 400;
+            
+            var cfgView = new Configuration(config);
+            cfgView.ShowDialog();
+
             return config;
         }
 
         private static List<PointInSpace> GetPoints(BezierMotionConfig config)
         {
-            //List<List<PointInSpace>> trackPoints = new List<List<PointInSpace>>();
 
             var stepSize = 1 / (config.TotalSecondsPerTrack * config.StepsPerSecond);
 
-            //for (int trackIndex = 0; trackIndex < config.NumberOfTracks; trackIndex++)
-            //{			
             var points = new List<PointInSpace>();
 
             for (double i = 0; i < 1; i += stepSize)
             {
-                points.Add(Bezier4(config.point1, config.point2, config.point3, config.point4, i));
+                points.Add(Bezier4(config.Point1, config.Point2, config.Point3, config.Point4, i));
             }
 
-            points.Add(config.point4);
-            //trackPoints.Add(points);
-            //}
+            points.Add(config.Point4);
+
             return points;
-            //return trackPoints;
+
         }
 
-        private static PointInSpace Bezier4(PointInSpace p1, PointInSpace p2, PointInSpace p3, PointInSpace p4, double mu)
+        private static PointInSpace Bezier4(PointInSpace point1, PointInSpace point2, PointInSpace point3, PointInSpace point4, double mu)
         {
-            double mum1, mum13, mu3;
             PointInSpace p;
 
-            mum1 = 1 - mu;
-            mum13 = mum1 * mum1 * mum1;
-            mu3 = mu * mu * mu;
+            var mum1 = 1 - mu;
+            var mum13 = mum1 * mum1 * mum1;
+            var mu3 = mu * mu * mu;
 
-            p.x = mum13 * p1.x + 3 * mu * mum1 * mum1 * p2.x + 3 * mu * mu * mum1 * p3.x + mu3 * p4.x;
-            p.y = mum13 * p1.y + 3 * mu * mum1 * mum1 * p2.y + 3 * mu * mu * mum1 * p3.y + mu3 * p4.y;
-            p.z = mum13 * p1.z + 3 * mu * mum1 * mum1 * p2.z + 3 * mu * mu * mum1 * p3.z + mu3 * p4.z;
+            p.X = mum13 * point1.X + 3 * mu * mum1 * mum1 * point2.X + 3 * mu * mu * mum1 * point3.X + mu3 * point4.X;
+            p.Y = mum13 * point1.Y + 3 * mu * mum1 * mum1 * point2.Y + 3 * mu * mu * mum1 * point3.Y + mu3 * point4.Y;
+            p.Zoom = mum13 * point1.Zoom + 3 * mu * mum1 * mum1 * point2.Zoom + 3 * mu * mu * mum1 * point3.Zoom + mu3 * point4.Zoom;
 
             return (p);
         }
 
-        public struct PointInSpace
-        {
-            public double x;
-            public double y;
-            public double z;
-        }
-
-        public class BezierMotionConfig
-        {
-            public int NumberOfTracks;
-            public double TotalSeconds;
-            public double TotalSecondsPerTrack;
-            public PointInSpace point1;
-            public PointInSpace point2;
-            public PointInSpace point3;
-            public PointInSpace point4;
-            public int StepsPerSecond;
-            public double SecondsBetweenFrames;
-        }
     }
 }

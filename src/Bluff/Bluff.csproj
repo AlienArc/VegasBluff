@@ -61,6 +61,13 @@
     <Compile Include="AboutBluff.Designer.cs">
       <DependentUpon>AboutBluff.cs</DependentUpon>
     </Compile>
+    <Compile Include="Bezier\BezierMotionConfig.cs" />
+    <Compile Include="Bezier\Configuration.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Bezier\Configuration.Designer.cs">
+      <DependentUpon>Configuration.cs</DependentUpon>
+    </Compile>
     <Compile Include="BluffCustomCommand.cs" />
     <Compile Include="BluffException.cs" />
     <Compile Include="Commands\ConvertMarkersToRegions.cs" />
@@ -72,10 +79,16 @@
     <Compile Include="Helpers\VegasHelper.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
     <Compile Include="Models\MarkerInfo.cs" />
+    <Compile Include="Models\PointInSpace.cs" />
     <Compile Include="Models\TrackInfo.cs" />
     <Compile Include="Commands\OrderEventsByNameAndTime.cs" />
     <Compile Include="Commands\OrderEventsByRandom.cs" />
     <Compile Include="Helpers\TrackEventsNameTimeComparer.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
     <Compile Include="VideoWall\WallBuilder.cs" />
     <Compile Include="VideoWall\WallBuilderConfigurationView.cs">
       <SubType>Form</SubType>
@@ -91,19 +104,21 @@
     <Compile Include="VideoWall\WallBuilderConfiguration.cs" />
     <EmbeddedResource Include="AboutBluff.resx">
       <DependentUpon>AboutBluff.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Bezier\Configuration.resx">
+      <DependentUpon>Configuration.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="VideoWall\WallBuilderConfigurationView.resx">
       <DependentUpon>WallBuilderConfigurationView.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <Compile Include="Properties\Resources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="Content\AboutBluff.rtf" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

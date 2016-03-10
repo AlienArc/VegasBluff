@@ -55,6 +55,7 @@ namespace Bluff
                 DisplayName = "Events"
             };
 
+            subMenu.AddChild(CreateToolMenuItem("BluffArrangeEventsByCreatedTimestamp", "Arrange Events By Created Timestamp", ArrangeEventsByCreatedTimestamp.Execute));
             subMenu.AddChild(CreateToolMenuItem("BluffOrderEventsByNameTime", "Order Events By Name and In Time", OrderEventsByNameAndTime.Execute));
             subMenu.AddChild(CreateToolMenuItem("BluffRandomizeEvents", "Randomize Events", OrderEventsByRandom.Execute));
 

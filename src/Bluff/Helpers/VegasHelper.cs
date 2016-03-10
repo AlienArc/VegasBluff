@@ -37,18 +37,30 @@ namespace Bluff.Helpers
 
         }
 
-        public static List<TrackEvent> GetSelectedTrackEvents(List<VideoTrack> videoTracks)
+        public static List<TrackEvent> GetTrackEvents(List<VideoTrack> videoTracks, TrackSelectionPreference selectionPreference = TrackSelectionPreference.PreferSelected)
         {
             var selectedTrackEvents = new List<TrackEvent>();
 
-            foreach (var selectedTrack in videoTracks)
+            if (selectionPreference == TrackSelectionPreference.OnlySelected ||
+                selectionPreference == TrackSelectionPreference.PreferSelected)
             {
-                foreach (var trackEvent in selectedTrack.Events)
+                foreach (var selectedTrack in videoTracks)
                 {
-                    if (trackEvent.Selected)
+                    foreach (var trackEvent in selectedTrack.Events)
                     {
-                        selectedTrackEvents.Add(trackEvent);
+                        if (trackEvent.Selected)
+                        {
+                            selectedTrackEvents.Add(trackEvent);
+                        }
                     }
+                }
+            }
+
+            if (selectedTrackEvents.Count == 0 && selectionPreference != TrackSelectionPreference.OnlySelected)
+            {
+                foreach (var selectedTrack in videoTracks)
+                {
+                    selectedTrackEvents.AddRange(selectedTrack.Events);
                 }
             }
 
@@ -56,6 +68,7 @@ namespace Bluff.Helpers
             {
                 throw new BluffException(String.Format("Must have events selected."));
             }
+
             return selectedTrackEvents;
         }
 

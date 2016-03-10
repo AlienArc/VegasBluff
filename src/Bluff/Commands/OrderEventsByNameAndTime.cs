@@ -11,7 +11,7 @@ namespace Bluff.Commands
         {
             var videoTracks = VegasHelper.GetTracks<VideoTrack>(vegas, 1);
             
-            var selectedTrackEvents = VegasHelper.GetSelectedTrackEvents(videoTracks);
+            var selectedTrackEvents = VegasHelper.GetTrackEvents(videoTracks);
 
             var currentPosition = selectedTrackEvents[0].Start;
 

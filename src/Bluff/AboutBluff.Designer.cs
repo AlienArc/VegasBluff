@@ -34,35 +34,42 @@
             // 
             // CloseButtom
             // 
+            this.CloseButtom.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.CloseButtom.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.CloseButtom.Location = new System.Drawing.Point(391, 190);
+            this.CloseButtom.Location = new System.Drawing.Point(782, 444);
+            this.CloseButtom.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.CloseButtom.Name = "CloseButtom";
-            this.CloseButtom.Size = new System.Drawing.Size(75, 23);
+            this.CloseButtom.Size = new System.Drawing.Size(150, 44);
             this.CloseButtom.TabIndex = 0;
             this.CloseButtom.Text = "Close";
             this.CloseButtom.UseVisualStyleBackColor = true;
             // 
             // AboutInfo
             // 
+            this.AboutInfo.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.AboutInfo.BackColor = System.Drawing.SystemColors.Control;
             this.AboutInfo.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.AboutInfo.DetectUrls = false;
-            this.AboutInfo.Location = new System.Drawing.Point(12, 12);
+            this.AboutInfo.Location = new System.Drawing.Point(24, 23);
+            this.AboutInfo.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.AboutInfo.Name = "AboutInfo";
             this.AboutInfo.ReadOnly = true;
             this.AboutInfo.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-            this.AboutInfo.Size = new System.Drawing.Size(454, 172);
+            this.AboutInfo.Size = new System.Drawing.Size(908, 410);
             this.AboutInfo.TabIndex = 1;
             this.AboutInfo.Text = "";
             // 
             // AboutBluff
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(478, 225);
+            this.ClientSize = new System.Drawing.Size(956, 512);
             this.Controls.Add(this.AboutInfo);
             this.Controls.Add(this.CloseButtom);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Margin = new System.Windows.Forms.Padding(6, 6, 6, 6);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "AboutBluff";

@@ -19,7 +19,7 @@ namespace Bluff
             var assembly = Assembly.GetExecutingAssembly();
             var exAsmVersion = assembly.GetName().Version.ToString();
 
-            using (var rtfSource = assembly.GetManifestResourceStream("Bluff.Content.AboutBludd.rtf"))
+            using (var rtfSource = assembly.GetManifestResourceStream("Bluff.Content.AboutBluff.rtf"))
             using (var reader = new StreamReader(rtfSource))
             {
                 var rawRtf = reader.ReadToEnd();

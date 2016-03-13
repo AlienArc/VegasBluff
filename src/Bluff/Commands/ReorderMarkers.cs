@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Windows.Forms;
 using Bluff.Helpers;
 using Bluff.Models;
 using Sony.Vegas;
@@ -12,6 +12,11 @@ namespace Bluff.Commands
         {
             var proj = vegas.Project;
 
+            var processSeperately = KeyboardState.IsKeyDown(Keys.Control)
+                || KeyboardState.IsKeyDown(Keys.ControlKey)
+                || KeyboardState.IsKeyDown(Keys.LControlKey)
+                || KeyboardState.IsKeyDown(Keys.RControlKey);
+
             using (var undo = new UndoBlock("Reorder Marker and Regions"))
             {
                 var existingMarkers = VegasHelper.GetMarkersByTimecode(proj);
@@ -20,29 +25,32 @@ namespace Bluff.Commands
                 var markPositions = RemoveMarkers(proj, existingMarkers);
                 var regionPositions = RemoveRegions(proj, existingRegions);
 
-                var combinedPositions = new List<MarkerInfo>(markPositions);
-                foreach (var regionPosition in regionPositions)
+                if (processSeperately)
                 {
-                    combinedPositions.Add(regionPosition);
-                }
-                combinedPositions.Sort(new MarkerInfoComparer());
+                    foreach (var mi in markPositions)
+                    {
+                        AddRegionOrMarker(mi, proj.Regions, proj.Markers);
+                    }
 
-                foreach (var cp in combinedPositions)
+                    foreach (var ri in regionPositions)
+                    {
+                        AddRegionOrMarker(ri, proj.Regions, proj.Markers);
+                    }
+                }
+                else
                 {
-                    AddRegionOrMarker(cp, proj.Regions, proj.Markers);
+                    var combinedPositions = new List<MarkerInfo>(markPositions);
+                    foreach (var regionPosition in regionPositions)
+                    {
+                        combinedPositions.Add(regionPosition);
+                    }
+                    combinedPositions.Sort(new MarkerInfoComparer());
+
+                    foreach (var cp in combinedPositions)
+                    {
+                        AddRegionOrMarker(cp, proj.Regions, proj.Markers);
+                    }
                 }
-
-                //foreach (var mi in markPositions)
-                //{
-                //    AddRegionOrMarker(mi, proj.Regions, proj.Markers);
-                //    //proj.Markers.Add(GetRegionOrMarker(mi));
-                //}
-
-                //foreach (var ri in regionPositions)
-                //{
-                //    AddRegionOrMarker(ri, proj.Regions, proj.Markers);
-                //    //proj.Regions.Add(GetRegionOrMarker(ri));
-                //}
             }
 
         }

@@ -4,6 +4,7 @@
   <PropertyGroup>
     <MyProgramFiles>$(ProgramW6432)</MyProgramFiles>
     <MyProgramFiles Condition="$(MyProgramFiles) == ''">$(ProgramFiles)</MyProgramFiles>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Bluff</RootNamespace>
     <AssemblyName>Bluff</AssemblyName>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -42,6 +43,7 @@
     <ApplicationIcon>Bluff.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="Sony.Vegas">
       <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 13.0')">$(MyProgramFiles)\Sony\Vegas Pro 13.0\Sony.Vegas.dll</HintPath>
       <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 12.0')">$(MyProgramFiles)\Sony\Vegas Pro 12.0\Sony.Vegas.dll</HintPath>
@@ -54,6 +56,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutBluff.cs">
@@ -77,6 +80,7 @@
     <Compile Include="Commands\ReorderMarkers.cs" />
     <Compile Include="Commands\SplitRegion.cs" />
     <Compile Include="Commands\TrackAlongBezier.cs" />
+    <Compile Include="Helpers\KeyboardState.cs" />
     <Compile Include="Helpers\ListHelpers.cs" />
     <Compile Include="Helpers\TrackSelectionPreference.cs" />
     <Compile Include="Helpers\VegasHelper.cs" />

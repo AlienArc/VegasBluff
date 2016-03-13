@@ -74,12 +74,29 @@ namespace Bluff.Helpers
 
         public static List<Marker> GetMarkersByTimecode(Project proj)
         {
+            if (proj.Markers.Count == 0)
+            {
+                return new List<Marker>();
+            }
+
             var markers = new List<Marker>(proj.Markers);
             markers.Sort((Comparison<Marker>) MarkerTimecodeComparer);
             return markers;
         }
+        
+        public static List<Region> GetRegionsByTimecode(Project proj)
+        {
+            if (proj.Regions.Count == 0)
+            {
+                return new List<Region>();
+            }
 
-        private static int MarkerTimecodeComparer(Marker x, Marker y)
+            var regions = new List<Region>(proj.Regions);
+            regions.Sort((Comparison<Region>)MarkerTimecodeComparer);
+            return regions;
+        }
+
+        public static int MarkerTimecodeComparer(Marker x, Marker y)
         {
             return x.Position.CompareTo(y.Position);
         }

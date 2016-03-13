@@ -70,7 +70,7 @@ namespace Bluff
             };
 
             subMenu.AddChild(CreateToolMenuItem("BluffConvertMarkersToRegions", "Convert Markers To Regions", ConvertMarkersToRegions.Execute));
-            subMenu.AddChild(CreateToolMenuItem("BluffReorderMarkers", "Reorder Markers", ReorderMarkers.Execute));
+            subMenu.AddChild(CreateToolMenuItem("BluffReorderMarkers", "Reorder Markers and Regions", ReorderMarkers.Execute));
             subMenu.AddChild(CreateToolMenuItem("BluffSplitRegion", "Split Region", SplitRegion.Execute));
             
             return subMenu;

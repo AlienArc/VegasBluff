@@ -44,7 +44,8 @@
   <ItemGroup>
     <Reference Include="Sony.Vegas">
       <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 13.0')">$(MyProgramFiles)\Sony\Vegas Pro 13.0\Sony.Vegas.dll</HintPath>
-      <HintPath Condition="'$(HintPath)' == '' ">$(MyProgramFiles)\Sony\Vegas Pro 12.0\Sony.Vegas.dll</HintPath>
+      <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 12.0')">$(MyProgramFiles)\Sony\Vegas Pro 12.0\Sony.Vegas.dll</HintPath>
+      <HintPath Condition="Exists('$(MyProgramFiles)\Sony\Vegas Pro 8.0')">$(MyProgramFiles)\Sony\Vegas Pro 8.0\Sony.Vegas.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="System" />
@@ -81,7 +82,9 @@
     <Compile Include="Helpers\VegasHelper.cs" />
     <Compile Include="Models\KeyFrameInfo.cs" />
     <Compile Include="Models\MarkerInfo.cs" />
+    <Compile Include="Models\MarkerInfoComparer.cs" />
     <Compile Include="Models\PointInSpace.cs" />
+    <Compile Include="Models\RegionInfo.cs" />
     <Compile Include="Models\TrackEventInfo.cs" />
     <Compile Include="Models\TrackInfo.cs" />
     <Compile Include="Commands\OrderEventsByNameAndTime.cs" />

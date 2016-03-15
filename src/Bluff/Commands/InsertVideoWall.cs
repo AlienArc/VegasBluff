@@ -35,13 +35,9 @@ namespace Bluff.Commands
 
         private static bool GetConfigurationFromUser(WallBuilderConfiguration configData)
         {
-            var configWindow = new WallBuilderConfigurationView();
-            configWindow.ConfigData = configData;
-            if (configWindow.ShowDialog() != DialogResult.OK)
-            {
-                return false;
-            }
-            return true;
+            var configWindow = new Views.WallBuilder(configData); 
+            var dr = configWindow.ShowDialog();
+            return dr.GetValueOrDefault();
         }
 
         private static VideoTrack SelectOrInsertVideoTrack(Vegas vegas, List<VideoTrack> videoTracks, int trackNumber)

@@ -7,45 +7,57 @@
              mc:Ignorable="d" 
              SizeToContent="WidthAndHeight"  Height="Auto" Width="Auto" Padding="10" 
              WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" ResizeMode="NoResize"
-             Title="Bluff" 
-             DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <!--Icon="pack://application:,,,/Bluff;component/Bluff.ico"-->
+             Title="About Bluff" 
+             DataContext="{Binding RelativeSource={RelativeSource Self}}" Icon="pack://application:,,,/Bluff;component/Bluff.ico">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Wpf/BasicStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
 
-    <Grid Margin="15">
-        <Grid.Resources>
             <Style TargetType="TextBlock">
-                <Setter Property="HorizontalAlignment" Value="Center"></Setter>
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
                 <Setter Property="FontSize" Value="12"></Setter>
             </Style>
-        </Grid.Resources>
+            <Style TargetType="Label">
+                <Setter Property="HorizontalAlignment" Value="Left"></Setter>
+                <Setter Property="FontSize" Value="12"></Setter>
+            </Style>
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid Margin="15">
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <RowDefinition Height="10"/>
+            <RowDefinition Height="40"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!--<Image Grid.RowSpan="3" Source="pack://application:,,,/Bluff;component/Images/Bluff-128.png" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>-->
-        
-        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical">
+        <Image Margin="0,0,10,0" Source="pack://application:,,,/Bluff;component/Images/Bluff-128.png" MaxWidth="128" MaxHeight="128" Stretch="Uniform" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,0">
+            <TextBlock>Version</TextBlock>
+            <TextBlock Text="{Binding Version}" />
+        </StackPanel>
+
+        <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Vertical" Margin="0,0" VerticalAlignment="Top">
             <TextBlock FontSize="32" FontWeight="Bold">Bluff</TextBlock>
             <TextBlock>Open Source Extensions for Sony Vegas Pro</TextBlock>
             
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20">
-                <TextBlock>Version </TextBlock>
-                <TextBlock Text="{Binding Version}" />
-            </StackPanel>
-
-            <TextBlock>Maintained by</TextBlock>
+            <TextBlock Margin="0,15,0,0" FontSize="8">Maintained by</TextBlock>
             <TextBlock FontSize="18">Alien Arc Technologies, LLC</TextBlock>
             <TextBlock>www.alienarc.com</TextBlock>
         </StackPanel>
 
+        <Label Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center">github.com/AlienArc/VegasBluff</Label>
+        
         <StackPanel Grid.Column="1" Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Button Click="Close_OnClick" Margin="20,10" Padding="20,10">Close</Button>
+            <Button Click="Close_OnClick">Close</Button>
         </StackPanel>
     </Grid>
 </Window>

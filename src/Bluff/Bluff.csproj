@@ -4,7 +4,8 @@
   <PropertyGroup>
     <MyProgramFiles>$(ProgramW6432)</MyProgramFiles>
     <MyProgramFiles Condition="$(MyProgramFiles) == ''">$(ProgramFiles)</MyProgramFiles>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -61,6 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bezier\BezierMotionConfig.cs" />
+    <Compile Include="Bezier\BezierMotion.cs" />
     <Compile Include="Bezier\Configuration.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,12 +97,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="VideoWall\WallBuilder.cs" />
-    <Compile Include="VideoWall\WallBuilderConfigurationView.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VideoWall\WallBuilderConfigurationView.Designer.cs">
-      <DependentUpon>WallBuilderConfigurationView.cs</DependentUpon>
-    </Compile>
     <Compile Include="BluffCommandModule.cs" />
     <Compile Include="..\GlobalAssemblyInfo.cs">
       <Link>Properties\GlobalAssemblyInfo.cs</Link>
@@ -110,12 +106,13 @@
     <Compile Include="Views\AboutBluff.xaml.cs">
       <DependentUpon>AboutBluff.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\WallBuilder.xaml.cs">
+      <DependentUpon>WallBuilder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Wpf\SimpleGrid.cs" />
+    <Compile Include="_kindOfMagic.cs" />
     <EmbeddedResource Include="Bezier\Configuration.resx">
       <DependentUpon>Configuration.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="VideoWall\WallBuilderConfigurationView.resx">
-      <DependentUpon>WallBuilderConfigurationView.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -134,22 +131,30 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Bluff.ico" />
-    <Content Include="Images\Bluff-256.png" />
+    <Resource Include="Bluff.ico" />
+    <Resource Include="Images\Bluff-256.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Images\Bluff-128.png" />
-    <EmbeddedResource Include="Images\Bluff-16.png" />
-    <EmbeddedResource Include="Images\Bluff-32.png" />
-    <EmbeddedResource Include="Images\Bluff-64.png" />
-    <EmbeddedResource Include="Images\Bluff-72.png" />
-    <EmbeddedResource Include="Images\Bluff-96.png" />
+    <Resource Include="Images\Bluff-128.png" />
+    <Resource Include="Images\Bluff-16.png" />
+    <Resource Include="Images\Bluff-32.png" />
+    <Resource Include="Images\Bluff-64.png" />
+    <Resource Include="Images\Bluff-72.png" />
+    <Resource Include="Images\Bluff-96.png" />
     <EmbeddedResource Include="Images\BluffZZZHelpAbout.png" />
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\AboutBluff.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WallBuilder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Wpf\BasicStyles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

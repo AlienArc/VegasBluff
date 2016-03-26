@@ -3,6 +3,7 @@
 
     <Style TargetType="Button" >
         <Setter Property="Padding" Value="10,5"/>
-    </Style>
+		<Setter Property="Margin" Value="5,5,0,5"/>
+	</Style>
     
 </ResourceDictionary>

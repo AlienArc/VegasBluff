@@ -4,7 +4,7 @@
 
 An Open Source project to help make you look like you know what you are doing in ***Sony Vegas Pro***. Developed using **Vegas'** extension model, it takes you a step beyond what can easily be done inside a standard script. Developed initially to help create some custom video effects for internal and personal video projects. We thought it would be useful to other content producers out there and would like to see it improved by the community.
 
-Requires Sony Vegas Pro. Tested and built against Sony Vegas Pro 12, and should also work with version 13.
+**Requires** Sony Vegas Pro. Official release is compiled against the Vegas Pro 8 dll and functionality should be compatible from 8.0 - 13.0. All testing was done against Sony Vegas Pro 12.
 
 ##Getting it
 

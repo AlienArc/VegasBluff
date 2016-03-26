@@ -1,0 +1,71 @@
+﻿<Window x:Class="Bluff.Views.WallBuilder"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Bluff.Views"
+             xmlns:wpf="clr-namespace:Bluff.Wpf"
+             mc:Ignorable="d" 
+             Height="Auto" Width="Auto"
+             SizeToContent="WidthAndHeight"
+             WindowStyle="SingleBorderWindow"
+             ResizeMode="NoResize"
+             WindowStartupLocation="CenterScreen"
+             Title="Wall Builder Configuration"
+             Icon="pack://application:,,,/Bluff;component/Bluff.ico"
+             d:DesignHeight="300" d:DesignWidth="400">
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="../Wpf/BasicStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style TargetType="TextBox">
+                <Setter Property="Margin" Value="0,2,0,2"/>
+                <Setter Property="MinWidth" Value="75"/>
+            </Style>
+
+        </ResourceDictionary>
+    </Window.Resources>
+    
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <wpf:SimpleGrid Orientation="Vertical">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1*" />
+            </Grid.ColumnDefinitions>
+            <Label>How Many Columns?</Label>
+            <TextBox PreviewTextInput="IntegerOnlyPreviewTextInput" Text="{Binding Columns}"/>
+            <Label>How Many Rows?</Label>
+            <TextBox PreviewTextInput="IntegerOnlyPreviewTextInput" Text="{Binding Rows}"/>
+
+            <Label>How Many Seconds to hold?</Label>
+            <TextBox PreviewTextInput="DecimalOnlyPreviewTextInput" Text="{Binding DurationPerFrame}"/>
+            <Label>How Many Seconds to transition?</Label>
+            <TextBox PreviewTextInput="DecimalOnlyPreviewTextInput" Text="{Binding DurationBetweenFrames}"/>
+
+            <Label>Delay before initial zoom?</Label>
+            <TextBox PreviewTextInput="DecimalOnlyPreviewTextInput" Text="{Binding DelayBeforeFirstZoom}"/>
+
+            <Label>Randomize?</Label>
+            <CheckBox IsChecked="{Binding Randomize}" VerticalAlignment="Center" HorizontalAlignment="Left"/>
+
+
+            <Label>Padding:</Label>
+            <TextBox PreviewTextInput="DecimalOnlyPreviewTextInput" Text="{Binding Padding}"/>
+            <Label>Zoom Offset:</Label>
+            <TextBox PreviewTextInput="DecimalOnlyPreviewTextInput" Text="{Binding ZoomOffset}"/>
+
+        </wpf:SimpleGrid>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Click="Cancel_OnClick" Content="Cancel"/>
+            <Button Click="Ok_OnClick" Content="Ok"/>
+        </StackPanel>
+    </Grid>
+</Window>

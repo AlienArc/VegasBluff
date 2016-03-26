@@ -8,7 +8,11 @@ An Open Source project to help make you look like you know what you are doing in
 
 ##Getting it
 
-To install the extension just download the current [release](https://github.com/AlienArc/VegasBluff/releases/latest "latest release") then follow these simple steps:
+There are two install options, and both start with going to the current release page: [Latest Release](https://github.com/AlienArc/VegasBluff/releases/latest "latest release")
+
+The first option is to run the provided MSI (Yea! we have an installer). This will install into the system-wide Vegas Application Extension folder (**ProgramData\Sony\Vegas Pro\Application Extensions** on current Windows systems) by default.
+
+The second option is to take the dll and manaully install it following these simple steps:
 
 1. Extract the contents of the archive
 2. Place the dll in one of the following locations:
@@ -16,8 +20,6 @@ To install the extension just download the current [release](https://github.com/
  * *AppData*\Sony\Vegas Pro\Application Extensions\ 
  * *ProgramData*\Sony\Vegas Pro\Application Extensions\ 
 3. Look for the new "Bluff" menu under Tools->Extensions
-
-We hope to have an official installer soon.
 
 ##Developer
 

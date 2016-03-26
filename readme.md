@@ -39,11 +39,15 @@ If you are going to add new features the most convenient way to work with Vegas 
 
 Creates a "wall" of video tracks using track motion. Does flyover zooming in and out between tracks. Useful to show lots of individual clips with quick highlights.
 
-####Track Along Bezier (beta)
+####Track Along Bezier (beta - only in debug builds)
 
 Creates a path that moves along a Bezier line.
 
 ###Events
+
+####Arrange Events By Created Timestamp (new)
+
+Positions events in relative time to each other on the timeline, leaving gaps. Useful when you have small clips that have matching (or near matching) timestamps to get them lined up, or at least close to where they should be.
 
 ####Order Events by Name and In Time
 
@@ -59,9 +63,9 @@ Randomizes selected events position in the timeline. Does not change the source 
 
 Iterates through markers and creates a region between every two markers.
 
-####Reorder Markers
+####Reorder Markers and Regions
 
-Reorders the markers in the project to be sequential.
+Reorders the markers (and now regions) in the project to be sequential. The default behavior is to renumber the markers and regions at the same time in sequential time order. If the CTRL key is held when execution the command then it will order all markers first, then it will order all regions.
 
 ####Split Region
 
